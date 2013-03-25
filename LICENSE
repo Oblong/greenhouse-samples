@@ -1,0 +1,59 @@
+Oblong SDK License Agreement for Non-Commercial or Limited-Scale Use
+
+BY INSTALLING OR OTHERWISE USING THE GREENHOUSE SDK YOU AND THE COMPANY OR ENTITY THAT YOU REPRESENT ("YOU" OR "LICENSEE") ARE BECOMING BOUND BY THE TERMS OF THIS AGREEMENT ("AGREEMENT"). IF THESE TERMS ARE CONSIDERED AN OFFER, ACCEPTANCE IS EXPRESSLY LIMITED TO THESE TERMS:
+
+1.  SDK License.
+
+1.1. License Grant. Subject to the terms and conditions of this Agreement, Oblong Industries, Inc., a Delaware corporation with an address at 923 East Third Street, Unit 111, Los Angeles, CA, USA 90013 ("Oblong") hereby grants to Licensee a limited, non-exclusive, non-transferable, non-assignable right to (i) use, install, run, perform and display the Oblong g-speak Greenhouse Software Development Kit (including without limitation, the Oblong g-speak Greenhouse software libraries, binary executables, packaged APIs and code samples, but otherwise not including source code), in the form and format provided by Oblong (the "SDK") for the sole purpose of developing products, services and any other software or hardware applications for Non-Commercial or Limited-Scale use.
+
+1.2. Limitations. Licensee may not, directly or indirectly, (i) use more than 20 (twenty) copies of the SDK for any commercial purpose or on behalf of any commercial entity; (ii) distribute, transmit or provide the SDK to any third party, except as expressly permitted by this Agreement, without the prior written consent of Oblong.
+
+1.3. Modifications. Licensee agrees that the form, function and nature of the SDK that Oblong provides may change without prior notice and that future versions of the SDK may be incompatible with applications developed on previous versions of the SDK. Licensee agrees that Oblong may stop (permanently or temporarily) providing the SDK (or any features within the SDK) to Licensee or to users generally at Oblong's sole discretion, without prior notice.
+
+1.4. Support and Upgrades. If Oblong provides Licensee with any upgrades, patches, enhancements, or fixes for the SDK, then the items that are provided will become part of the SDK and subject to this Agreement. Oblong shall have no obligation, however, under this Agreement to provide any upgrades, patches, enhancements, fixes or any other support to Licensee for the SDK.
+
+1.5. Nonassertion by Licensee. Licensee agrees not to assert any patent rights related to the SDK or any Non-Commercial Applications against Oblong, Oblong's distributors, Oblong's customers, or other licensees of the SDK for making, using, selling, offering for sale, or importing any products or technology developed using the SDK.
+
+2.  Use of the SDK.
+
+2.1. Ownership of Applications. Oblong agrees that it obtains no right, title or interest from Licensee (or its users) under this Agreement in or to any software applications developed using the SDK in compliance with the terms and conditions of this Agreement, including any intellectual property rights that subsist in those applications.
+
+2.2. Use of Applications. Licensee agrees to use the SDK and write applications only for purposes that are expressly permitted by (i) this Agreement and (ii) any applicable law, regulation or generally accepted practices or guidelines in relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+
+3.  Proprietary Rights and Confidentiality.
+
+3.1. Trademarks. Nothing in this Agreement gives Licensee a right to use any of Oblong's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+
+3.2. Notices. Licensee agrees that Licensee will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the SDK.
+
+3.3. Ownership. The SDK is licensed, not sold. The SDK is protected by the copyright laws of the United States and international copyright treaties. Except for the limited rights and licenses expressly granted hereunder, no other license is granted (by implication, estoppel or otherwise), no other use is permitted and Oblong (and third party licensors) shall own and retain all rights, title and interests (including intellectual property rights) in and to the SDK. Licensee agrees not to take any action inconsistent with such ownership. Licensee acknowledges and agrees that Oblong is and shall be free (and shall be free to permit others) to use and exploit, in any manner and for any purpose, during and after the term of this Agreement, any and all modifications, corrections, improvements and extensions to the SDK that Licensee or any of its users may suggest to Oblong.
+
+4.  Term and Termination.
+
+4.1. Term. This Agreement shall become effective on the Effective Date and shall remain in effect for a period of one (1) year. This Agreement will automatically renew for successive periods of one (1) year unless either party terminates this Agreement as set forth below.
+
+4.2. Termination. Either party may terminate this Agreement for convenience at any time with at least thirty (30) days prior written notice. In addition, Oblong may, at any time, terminate this Agreement immediately upon written notice to Licensee if Licensee has breached any provision of this Agreement.
+
+4.3. Effects of Termination. Upon termination of this Agreement for any reason, all rights, obligations and licenses of the parties hereunder shall cease, except that (i) Licensee shall stop using the SDK, return or destroy all copies of the SDK (and all records, materials and information developed therefrom) and permanently erase the SDK from all storage media, (ii) provided that this Agreement is not terminated due to breach by Licensee, Licensee may continue to use and sublicense any Non-Commercial Application developed prior to termination in accordance with the term and conditions of this Agreement, (iii) all obligations that accrued prior to the effective date of termination and any remedy for breach of this Agreement shall survive any termination and (iv) the provisions of Sections 3 (Proprietary Rights and Confidentiality), 5 (Disclaimer of Warranties), 6 (Limitation of Liability), 7 (Indemnification), 9 (Miscellaneous) and this Section 4.3 shall also survive.
+
+5. WARRANTY DISCLAIMER. USE OF THE SDK IS AT LICENSEE'S SOLE RISK AND THE SDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT REPRESENTATION OR WARRANTY OF ANY KIND. USE OF THE SDK AND ANY MATERIAL OTHERWISE OBTAINED THROUGH OR DERIVED FROM THE USE OF THE SDK IS AT LICENSEE'S OWN DISCRETION AND RISK AND LICENSEE IS SOLELY RESPONSIBLE FOR ANY DAMAGE TO COMPUTER SYSTEMS OR OTHER DEVICES OR LOSS OF DATA THAT RESULTS FROM SUCH USE. OBLONG DOES NOT WARRANT THAT THE SDK WILL BE COMPATIBLE WITH ANY APPLICATIONS OR ENVIRONMENTS OR OTHERWISE MEET LICENSEE'S REQUIREMENTS, OR THAT OPERATION WILL BE UNINTERRUPTED OR ERROR-FREE. OBLONG FURTHER EXPRESSLY DISCLAIMS (FOR ITSELF AND ITS LICENSORS) ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO THE WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY, INTEGRATION, QUIET ENJOYMENT, NON-INFRINGEMENT, AND ALL WARRANTIES ARISING OUT OF COURSE OF PERFORMANCE, COURSE OF DEALING OR USAGE IN TRADE.
+
+6. LIMITATION OF LIABILITY. EXCEPT TO THE EXTENT VOID UNDER APPLICABLE LAW, OBLONG SHALL NOT BE LIABLE CONCERNING THE SUBJECT MATTER OF THIS AGREEMENT, REGARDLESS OF THE FORM OF ANY CLAIM OR ACTION (WHETHER IN CONTRACT, NEGLIGENCE, STRICT LIABILITY OR OTHERWISE), FOR ANY (I) MATTER BEYOND ITS REASONABLE CONTROL; (II) LOSS OR INACCURACY OF DATA, LOSS OR INTERRUPTION OF USE, OR COST OF PROCURING SUBSTITUTE TECHNOLOGY, GOODS OR SERVICES; (III) INDIRECT, PUNITIVE, INCIDENTAL, RELIANCE, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES INCLUDING, BUT NOT LIMITED TO, LOSS OF BUSINESS, REVENUES, PROFITS OR GOODWILL OR (IV) DAMAGES, IN THE AGGREGATE, IN EXCESS OF US$25.00, EVEN IF IT HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THESE LIMITATIONS ARE INDEPENDENT FROM ALL OTHER PROVISIONS OF THIS AGREEMENT AND SHALL APPLY NOTWITHSTANDING THE FAILURE OF ANY REMEDY PROVIDED HEREIN.
+
+7. Indemnification. To the maximum extent permitted by law, Licensee shall defend, indemnify and hold harmless Oblong, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (i) use of the SDK, (ii) any application developed using the SDK (including without limitation, any claim that any developed application infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy) and (iii) any non-compliance by Licensee or its users with this Agreement.
+
+8.  Miscellaneous. 
+
+8.1. Entire Agreement. This Agreement constitutes the entire legal agreement between Licensee and Oblong and governs use of the SDK (excluding any services that Oblong may provide under a separate written agreement), and completely replaces any prior agreements between Licensee and Oblong in relation to the SDK. This Agreement is in English only, which shall be controlling in all respects. No version of this Agreement in another language shall be binding or of any effect.
+
+8.2. Changes. Oblong may make changes to the Agreement as it distributes new versions of the SDK. When these changes are made, Oblong will make a new version of the Agreement available.
+
+8.3. Waiver. No provision of right, power or privilege under this Agreement shall be deemed to have been waived by any act, delay, omission or acquiescence on the part of any party, its agents or employees, but only by an instrument in writing signed by an authorized representative of each party. No waiver by any party of any breach or default of by the other party shall be effective as to any other breach or default, whether of the same or any other provision and whether occurring prior to, concurrent with, or subsequent to the date of such waiver.
+
+8.4. Severability. If any provision of this Agreement is held to be invalid, illegal or unenforceable in any respect, that provision shall be limited or eliminated to the minimum extent necessary so that this Agreement otherwise remains in full force and effect and enforceable.
+
+8.5. Assignment. The rights granted in this Agreement may not be assigned or transferred by Licensee, in whole or in part, without the prior written approval of Oblong. Oblong may assign this Agreement to any of its affiliates or to any successor to all or substantially all of its business (whether by sale of assets or equity, merger, consolidation or otherwise). This Agreement shall be binding upon, and inure to the benefit of, the successors, representatives and permitted assigns of the parties.
+
+8.6. Jurisdiction; Venue. This Agreement shall be governed by and construed in accordance with the laws of the State of California, United States of America, without regard to its conflicts of law provisions. The sole jurisdiction and venue for actions related to this Agreement will be the state or federal courts located in Los Angeles, California, USA and both parties consent to the jurisdiction of such courts with respect to any such action.
+
+8.7. Basis of Bargain. EACH PARTY RECOGNIZES AND AGREES THAT THE WARRANTY DISCLAIMERS AND LIABILITY AND REMEDY LIMITATIONS IN THIS AGREEMENT ARE MATERIAL, BARGAINED FOR BASES OF THIS AGREEMENT AND THAT THEY HAVE BEEN TAKEN INTO ACCOUNT AND REFLECTED IN DETERMINING THE CONSIDERATION TO BE GIVEN BY EACH PARTY UNDER THIS AGREEMENT AND IN THE DECISION BY EACH PARTY TO ENTER INTO THIS AGREEMENT.
