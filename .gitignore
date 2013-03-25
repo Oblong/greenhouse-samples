@@ -1,0 +1,48 @@
+*.[oa]
+*.la
+*.lo
+
+.libs/
+.deps/
+
+*~
+
+# KDiff3
+*.orig
+*.sublime-workspace
+*.sublime-project
+
+.gdb_history
+
+.DS_Store
+TAGS
+
+# Windows
+*.exe
+*.exe.manifest
+*.ilk
+*.pdb
+*.ncb
+*.suo
+*.user
+*.sdf
+Debug/
+Release/
+DebugStatic/
+ReleaseStatic/
+
+# Xcode?
+*.mode1v3
+*.pbxuser
+xcuserdata
+project.xcworkspace
+UserInterfaceState.xcuserstate
+
+# Eclipse
+/.project
+/.cproject
+
+# Mac debugging symbols
+*.dSYM/
+
+
