@@ -102,7 +102,7 @@ end
 
 
 $poolname = 'witter'
-$poolname = ARGV[0] if ARGV[0].length > 0
+$poolname = ARGV[0] if ARGV[0] && ARGV[0].length > 0
 hose = hose_to $poolname
 if ! hose
   puts "wit-worker couldn't open a hose to the '#{$poolname}' pool."
