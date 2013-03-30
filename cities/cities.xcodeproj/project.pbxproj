@@ -203,7 +203,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					/opt/oblong/greenhouse/examples,
 					/opt/oblong/greenhouse/include,
 					"/opt/oblong/deps-64-8/.bon-jovi/include",
 					"/opt/oblong/deps-64-8/include",
@@ -225,7 +224,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
-					/opt/oblong/greenhouse/examples,
 					/opt/oblong/greenhouse/include,
 					"/opt/oblong/deps-64-8/.bon-jovi/include",
 					"/opt/oblong/deps-64-8/include",
