@@ -965,7 +965,7 @@ class Earthquakes  :  public DataSet
     }
 
   //  Victory gesture interactions to filter the data by quake depth plane
-  void VictoryAppear (const Vect &displacement)
+  void Victory (const Vect &displacement)
     { //  If the data has not been expanded by depth, do so now
       if (quake_depth_factor == 0 && !stratifiedByMagnitude)
         { Tag ("Expand");
