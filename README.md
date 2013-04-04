@@ -28,6 +28,8 @@ About the samples
 =================
 Each sample includes an Xcode project file, which Mac users with Xcode installed can just double-click. Separately, each sample has a vanilla Makefile as well, for command line usage.
 
+For runnable samples that focus on using specific features of the Greenhouse API, see the [Greenhouse API reference](http://greenhouse.oblong.com/reference.html).
+
 **helloworld** 
   
   - Just about the simplest thing that can possibly work.
@@ -44,15 +46,7 @@ Each sample includes an Xcode project file, which Mac users with Xcode installed
 
 **empty-proj**
 
-  - The empty sample provides a handy place to paste in code from samples on the [Greenhouse website](http://greenhouse.oblong.com/reference.html)
-
-**append-kid**
-  
-  - using an object as a container for other objects
-  - handling user pointing events
-  - creating simple text labels
-  - tagging/untagging objects
-  - parent/kid relationships
+  - The empty sample provides a handy place to paste in code from samples on the [Greenhouse API reference](http://greenhouse.oblong.com/reference.html)
   
 **heartbeats3D**
   
