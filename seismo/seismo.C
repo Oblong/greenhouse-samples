@@ -1442,7 +1442,7 @@ void Setup ()
   HideNeedlePoints ();
 
   //  Register for any non-default gesters
-  RegisterOneHandBlurt ("next", "^^^|-:**");
+  RegisterOneHandBlurt ("next", LShapePose);
 
   //  Set the intial state of the global variables
   viewDataAsGlobe = false;
