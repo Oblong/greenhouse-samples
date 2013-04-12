@@ -1214,7 +1214,7 @@ class DataSystem  :  public Thing
       SetRotation (Vect (1, 0, 0), 0);
 
       //  Eathquakes class settings
-      Earthquakes *eq = Find <Earthquakes> ("earthquake_dataset");
+      Earthquakes *eq = Find ("earthquake_dataset") -> As <Earthquakes> ();
       eq -> system_depth = 0;
       eq -> system_magnitude = 1;
       // show all
@@ -1396,11 +1396,11 @@ class DataSystem  :  public Thing
           else
             { viewDataAsGlobe = true; }
 
-          CountryBorders *cb = Find <CountryBorders> ("country_borders_dataset");
+          CountryBorders *cb = Find ("country_borders_dataset") -> As <CountryBorders> ();
           cb -> UpdatePointLocations();
           cb -> UpdatePointColors();
 
-          Earthquakes *eq2 = Find <Earthquakes> ("earthquake_dataset");
+          Earthquakes *eq2 = Find ("earthquake_dataset") -> As <Earthquakes> ();
           eq2 -> UpdatePointLocations ();
         }
 
@@ -1422,11 +1422,11 @@ class DataSystem  :  public Thing
           SetRotation (Vect (0, 1, 0), 0);
           SetRotation (Vect (1, 0, 0), 0);
 
-          CountryBorders *cb = Find <CountryBorders> ("country_borders_dataset");
+          CountryBorders *cb = Find ("country_borders_dataset") -> As <CountryBorders> ();
           cb -> UpdatePointLocations();
           cb -> UpdatePointColors();
 
-          Earthquakes *eq2 = Find <Earthquakes> ("earthquake_dataset");
+          Earthquakes *eq2 = Find ("earthquake_dataset") -> As <Earthquakes> ();
           eq2 -> UpdatePointLocations ();
         }
     }
