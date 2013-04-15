@@ -1,0 +1,265 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5649DC5516F921CF0048F7B1 /* libBasement.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC4D16F921CF0048F7B1 /* libBasement.2.dylib */; };
+		5649DC5616F921CF0048F7B1 /* libImpetus.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC4E16F921CF0048F7B1 /* libImpetus.2.dylib */; };
+		5649DC5716F921CF0048F7B1 /* libLoam.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC4F16F921CF0048F7B1 /* libLoam.2.dylib */; };
+		5649DC5816F921CF0048F7B1 /* libLoam++.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5016F921CF0048F7B1 /* libLoam++.2.dylib */; };
+		5649DC5916F921CF0048F7B1 /* libMedia.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5116F921CF0048F7B1 /* libMedia.2.dylib */; };
+		5649DC5A16F921CF0048F7B1 /* libNoodoo.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5216F921CF0048F7B1 /* libNoodoo.2.dylib */; };
+		5649DC5B16F921CF0048F7B1 /* libPlasma.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5316F921CF0048F7B1 /* libPlasma.2.dylib */; };
+		5649DC5C16F921CF0048F7B1 /* libPlasma++.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5416F921CF0048F7B1 /* libPlasma++.2.dylib */; };
+		5649DC5E16F921E20048F7B1 /* libGreenhouse.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */; };
+		5649DC6016F921F60048F7B1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5F16F921F60048F7B1 /* OpenGL.framework */; };
+		5649DC6216F9234D0048F7B1 /* hantenna.C in Sources */ = {isa = PBXBuildFile; fileRef = 5649DC6116F9234D0048F7B1 /* hantenna.C */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5649DC3E16F921580048F7B1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		5649DC4016F921580048F7B1 /* hantenna */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hantenna; sourceTree = BUILT_PRODUCTS_DIR; };
+		5649DC4D16F921CF0048F7B1 /* libBasement.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libBasement.2.dylib; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libBasement.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC4E16F921CF0048F7B1 /* libImpetus.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libImpetus.2.dylib; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libImpetus.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC4F16F921CF0048F7B1 /* libLoam.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLoam.2.dylib; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libLoam.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC5016F921CF0048F7B1 /* libLoam++.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLoam++.2.dylib"; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libLoam++.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC5116F921CF0048F7B1 /* libMedia.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMedia.2.dylib; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libMedia.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC5216F921CF0048F7B1 /* libNoodoo.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libNoodoo.2.dylib; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libNoodoo.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC5316F921CF0048F7B1 /* libPlasma.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPlasma.2.dylib; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libPlasma.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC5416F921CF0048F7B1 /* libPlasma++.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libPlasma++.2.dylib"; path = "/opt/oblong/deps-64-8/.bon-jovi/lib/libPlasma++.2.dylib"; sourceTree = "<absolute>"; };
+		5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGreenhouse.dylib; path = /opt/oblong/greenhouse/lib/libGreenhouse.dylib; sourceTree = "<absolute>"; };
+		5649DC5F16F921F60048F7B1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = ../../../../../System/Library/Frameworks/OpenGL.framework; sourceTree = "<group>"; };
+		5649DC6116F9234D0048F7B1 /* hantenna.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hantenna.C; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5649DC3D16F921580048F7B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5649DC6016F921F60048F7B1 /* OpenGL.framework in Frameworks */,
+				5649DC5E16F921E20048F7B1 /* libGreenhouse.dylib in Frameworks */,
+				5649DC5516F921CF0048F7B1 /* libBasement.2.dylib in Frameworks */,
+				5649DC5616F921CF0048F7B1 /* libImpetus.2.dylib in Frameworks */,
+				5649DC5716F921CF0048F7B1 /* libLoam.2.dylib in Frameworks */,
+				5649DC5816F921CF0048F7B1 /* libLoam++.2.dylib in Frameworks */,
+				5649DC5916F921CF0048F7B1 /* libMedia.2.dylib in Frameworks */,
+				5649DC5A16F921CF0048F7B1 /* libNoodoo.2.dylib in Frameworks */,
+				5649DC5B16F921CF0048F7B1 /* libPlasma.2.dylib in Frameworks */,
+				5649DC5C16F921CF0048F7B1 /* libPlasma++.2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5649DC3516F921580048F7B1 = {
+			isa = PBXGroup;
+			children = (
+				5649DC5F16F921F60048F7B1 /* OpenGL.framework */,
+				5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */,
+				5649DC4D16F921CF0048F7B1 /* libBasement.2.dylib */,
+				5649DC4E16F921CF0048F7B1 /* libImpetus.2.dylib */,
+				5649DC4F16F921CF0048F7B1 /* libLoam.2.dylib */,
+				5649DC5016F921CF0048F7B1 /* libLoam++.2.dylib */,
+				5649DC5116F921CF0048F7B1 /* libMedia.2.dylib */,
+				5649DC5216F921CF0048F7B1 /* libNoodoo.2.dylib */,
+				5649DC5316F921CF0048F7B1 /* libPlasma.2.dylib */,
+				5649DC5416F921CF0048F7B1 /* libPlasma++.2.dylib */,
+				5649DC6116F9234D0048F7B1 /* hantenna.C */,
+				5649DC4116F921580048F7B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5649DC4116F921580048F7B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5649DC4016F921580048F7B1 /* hantenna */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5649DC3F16F921580048F7B1 /* hantenna */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5649DC4A16F921580048F7B1 /* Build configuration list for PBXNativeTarget "hantenna" */;
+			buildPhases = (
+				5649DC3C16F921580048F7B1 /* Sources */,
+				5649DC3D16F921580048F7B1 /* Frameworks */,
+				5649DC3E16F921580048F7B1 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hantenna;
+			productName = hantenna;
+			productReference = 5649DC4016F921580048F7B1 /* hantenna */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5649DC3716F921580048F7B1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 5649DC3A16F921580048F7B1 /* Build configuration list for PBXProject "hantenna" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5649DC3516F921580048F7B1;
+			productRefGroup = 5649DC4116F921580048F7B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5649DC3F16F921580048F7B1 /* hantenna */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5649DC3C16F921580048F7B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5649DC6216F9234D0048F7B1 /* hantenna.C in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5649DC4816F921580048F7B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		5649DC4916F921580048F7B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5649DC4B16F921580048F7B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				HEADER_SEARCH_PATHS = (
+					/opt/oblong/greenhouse/include,
+					"/opt/oblong/deps-64-8/.bon-jovi/include",
+					"/opt/oblong/deps-64-8/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/oblong/deps-64-8/.bon-jovi/lib",
+					"/opt/oblong/deps-64-8/lib",
+					/opt/oblong/greenhouse/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
+			};
+			name = Debug;
+		};
+		5649DC4C16F921580048F7B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				HEADER_SEARCH_PATHS = (
+					/opt/oblong/greenhouse/include,
+					"/opt/oblong/deps-64-8/.bon-jovi/include",
+					"/opt/oblong/deps-64-8/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/oblong/deps-64-8/.bon-jovi/lib",
+					"/opt/oblong/deps-64-8/lib",
+					/opt/oblong/greenhouse/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5649DC3A16F921580048F7B1 /* Build configuration list for PBXProject "hantenna" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5649DC4816F921580048F7B1 /* Debug */,
+				5649DC4916F921580048F7B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5649DC4A16F921580048F7B1 /* Build configuration list for PBXNativeTarget "hantenna" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5649DC4B16F921580048F7B1 /* Debug */,
+				5649DC4C16F921580048F7B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5649DC3716F921580048F7B1 /* Project object */;
+}
