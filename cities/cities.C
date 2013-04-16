@@ -145,7 +145,7 @@ class Cities  :  public DataSet
   Dictionary <Str, Text *> labels;
 
   Cities ()  :  DataSet ()
-    { Load ("data/geonames_cities5000.txt");
+    { Load ("data/cities/geonames_cities5000.txt");
 
       city_name = StrColumn   (0);
       latitude  = FloatColumn (1);
