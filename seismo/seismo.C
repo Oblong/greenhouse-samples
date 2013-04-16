@@ -533,7 +533,7 @@ class Earthquakes  :  public DataSet
 
       // LOAD DATASET AND SET SYSTEM TIME VARIABLES
       system_start_year = 2007;
-      Load ("data/USGS_NEIC_" + INT (system_start_year) + "0101_20120906.txt");
+      Load ("data/seismo/USGS_NEIC_" + INT (system_start_year) + "0101_20120906.txt");
 
       system_current_year = system_start_year;
       system_current_month = 01;
