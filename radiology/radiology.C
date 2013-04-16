@@ -155,12 +155,12 @@ void Setup ()
   INFORM ("setting up the first skelly");
 
   // create a new skelly object and move it left
-  Skelly *skelly1 = new Skelly ("images/pet");
+  Skelly *skelly1 = new Skelly ("images/radiology/pet");
   skelly1 -> SetTranslation (Inside (Feld (), Vect (-0.25, 0.0, 0.0)));
 
   INFORM ("setting up the first skelly");
 
   // create a new skelly object and move it right
-  Skelly *skelly2 = new Skelly ("images/ct");
+  Skelly *skelly2 = new Skelly ("images/radiology/ct");
   skelly2 -> SetTranslation (Inside (Feld (), Vect (0.25, 0.0, 0.0)));
 }
