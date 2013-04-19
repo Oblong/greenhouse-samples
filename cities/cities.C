@@ -208,7 +208,7 @@ class Cities  :  public DataSet
         SetPointSize (closest, 4.0);
 
       //  todo: document this
-      Vect abs_loc = Wrangle (PointLocation (closest));
+      Vect abs_loc = WrangleLoc (PointLocation (closest));
 
       UpdateLabel (e, city_name[closest], abs_loc);
     }

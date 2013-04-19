@@ -896,10 +896,10 @@ class Earthquakes  :  public DataSet
       quake_abs_loc . SetInvalid ();
       if (closest > -1)
         { //  Find the location of the quake in the Eathquakes object
-          //  and then use Wrangle () to determine the absolute location
+          //  and then use WrangleLoc () to determine the absolute location
           //  which takes into consideration translations and rotations
           //  applied to the parent object (the DataSet class)
-          quake_abs_loc = Wrangle (PointLocation (closest));
+          quake_abs_loc = WrangleLoc (PointLocation (closest));
           m = ComputePointSize (magnitude . Nth (closest));
           m *= .3;
         }
