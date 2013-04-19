@@ -27,12 +27,12 @@ class CountryBorders  :  public DataSet
 { public:
 
   //  We store the dataset's latitudes/longitudes as floats
-  Trove <float64> latitude;   
-  Trove <float64> longitude; 
-  
-  //  Borders are stored as a continuous line VBO, 
+  Trove <float64> latitude;
+  Trove <float64> longitude;
+
+  //  Borders are stored as a continuous line VBO,
   //  0 = invisible, 1 = visible
-  Trove <int64> drawitude; 
+  Trove <int64> drawitude;
 
   CountryBorders ()  :  DataSet ()
     { Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt");
@@ -98,10 +98,10 @@ class CountryBorders  :  public DataSet
 
   void PointingMove (PointingEvent *e)
     { //  Drag the object
-      if (IsHeeding (e))  
-        { IncRotation (InverseTransformInPlace (Feld () -> Up ()),
+      if (IsHeeding (e))
+        { IncRotation (UnWrangleRay (Feld () -> Up ()),
                        IntersectionDiff (e, Loc ()) . x / 200);
-          IncRotation (InverseTransformInPlace (Feld () -> Over ()),
+          IncRotation (UnWrangleRay (Feld () -> Over ()),
                        - IntersectionDiff (e, Loc ()) . y / 200);
         }
     }
@@ -123,9 +123,9 @@ class CountryBorders  :  public DataSet
     }
 
   void FingerMove (PointingEvent *e)
-    { IncRotation (InverseTransformInPlace (Feld () -> Up ()), 
+    { IncRotation (UnWrangleRay (Feld () -> Up ()),
                    (e -> PhysOrigin () . x - e -> PrevOrigin () . x) / 250);
-      IncRotation (InverseTransformInPlace (Feld () -> Over ()), 
+      IncRotation (UnWrangleRay (Feld () -> Over ()),
                    -(e -> PhysOrigin () . y - e -> PrevOrigin () . y) / 250);
     }
 };
@@ -134,14 +134,14 @@ class CountryBorders  :  public DataSet
 //  Stores and displays the city data
 class Cities  :  public DataSet
 { public:
-  
+
   Trove <Str> city_name;
   Trove <float64> latitude;
   Trove <float64> longitude;
 
-  //  A map of event source names (provenances) to Text labels. 
-  //  These labels will display information about each cursor's 
-  //  closest data point 
+  //  A map of event source names (provenances) to Text labels.
+  //  These labels will display information about each cursor's
+  //  closest data point
   Dictionary <Str, Text *> labels;
 
   Cities ()  :  DataSet ()
@@ -164,7 +164,7 @@ class Cities  :  public DataSet
           // INFORM ( city_name[i] + ", "
           //        + FLOAT (longitude[i]) + ", "
           //        + FLOAT (latitude[i]) );
-          
+
           SetPointColor (i, HSB (0.12, 0.2, 1.0, 1.0));
           SetPointSize (i, 2.0);
         }
@@ -181,7 +181,7 @@ class Cities  :  public DataSet
     }
 
   void UpdateLabel (PointingEvent *e, Str text, Vect loc)
-    { //  We want one label per event source (mouse pointer, 
+    { //  We want one label per event source (mouse pointer,
       //  wiimote, etc.)  Ensure this source has a label.
       Text *label = labels . Get (e -> Provenance ());
       if (! label)
@@ -208,7 +208,7 @@ class Cities  :  public DataSet
         SetPointSize (closest, 4.0);
 
       //  todo: document this
-      Vect abs_loc = Transform (PointLocation (closest));
+      Vect abs_loc = Wrangle (PointLocation (closest));
 
       UpdateLabel (e, city_name[closest], abs_loc);
     }
@@ -221,17 +221,17 @@ class Cities  :  public DataSet
 void Setup ()
 { // Black background color
   SetFeldsColor (0.0, 0.0, 0.0);
-  
-  //  Turn off Greenhouse cursors
-  HideNeedlePoints (); 
 
-  CountryBorders *cb = new CountryBorders (); 
+  //  Turn off Greenhouse cursors
+  HideNeedlePoints ();
+
+  CountryBorders *cb = new CountryBorders ();
   Cities *a = new Cities ();
 
   //  Make the Cities object a kid of the CountryBorders object,
   //  so that when we move one, the other goes along for the ride.
   //  Parents' movements affect their kids.
-  cb -> AppendKid (a); 
+  cb -> AppendKid (a);
 
   //  Center both objects on the screen and orient them like the Feld
   cb -> SlapOnFeld ();

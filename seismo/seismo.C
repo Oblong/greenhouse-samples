@@ -1,7 +1,7 @@
 /* (c)  Oblong Industries */
 
 //  Earthquake data originally from the USGS
-//  < http://earthquake.usgs.gov/earthquakes/eqarchives/epic/epic_global.php > 
+//  < http://earthquake.usgs.gov/earthquakes/eqarchives/epic/epic_global.php >
 
 #include "Greenhouse.h"
 #include "DataSet.h"
@@ -16,9 +16,9 @@ bool explodedByDepth;
 //  COMMON CALCULATION METHODS
 //  Function to calculate the earthquake data GL point size
 float ComputePointSize (float m)
-  { float output = m * m * m * m; 
+  { float output = m * m * m * m;
      output = Range (output, 0, 10000, 0, 50);
-     if (output < 1.5) 
+     if (output < 1.5)
        output = 1.5;
      return output;
   }
@@ -36,10 +36,10 @@ Vect LatLongToSphereSurface (float64 radius, float64 lat, float64 lng)
 
 
 //  CLASSES
-//  The Selector object stores and displays the cube graphics that 
+//  The Selector object stores and displays the cube graphics that
 //  are displayed arounf individual quake data points
 class Selector  :  public Thing //  subclassed from Thing
-{  
+{
   public:
 
   Str provenance; //  name of the Pointer associated with this Selector
@@ -48,7 +48,7 @@ class Selector  :  public Thing //  subclassed from Thing
   Trove <float64> opengl_lines_sizes;  // holds all the line weights
   Trove <float64> opengl_lines_alphas; // holds all the line alphas
 
-  Selector (float point_radius)  :  Thing () 
+  Selector (float point_radius)  :  Thing ()
     { SetObliviousness (true); } // ignore Pointer interactions
 
   //  Function to rescale the size of the Selector cube graphics
@@ -61,305 +61,305 @@ class Selector  :  public Thing //  subclassed from Thing
       float64 corner_line_length = f / 2; // half of const float &f
      // BACK
      // BOTTOM LEFT
-      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length+corner_line_length/4, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length+corner_line_length/4,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length+corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length+corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
 
       // BOTTOM RIGHT
-      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length+corner_line_length/4, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length+corner_line_length/4,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    -corner_line_length+corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    -corner_line_length+corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
 
       // TOP RIGHT
-      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length-corner_line_length/4, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length-corner_line_length/4,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length+corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length+corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
 
       // TOP LEFT
-      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length-corner_line_length/4, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length-corner_line_length/4,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    -corner_line_length+corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    -corner_line_length+corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
 
       // FRONT
      // BOTTOM LEFT
-      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length+corner_line_length/4, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length+corner_line_length/4,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length-corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length-corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
       // BOTTOM RIGHT
-      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length+corner_line_length/4, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length+corner_line_length/4,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    -corner_line_length, 
-                                    corner_line_length-corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    -corner_line_length,
+                                    corner_line_length-corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
 
       // TOP RIGHT
-      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length-corner_line_length/4,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length-corner_line_length/4, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length-corner_line_length/4,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length-corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length-corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
 
       // TOP LEFT
-      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length+corner_line_length/4,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length-corner_line_length/4, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length-corner_line_length/4,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
-      opengl_lines . Append (Vect ( -corner_line_length, 
-                                    corner_line_length, 
-                                    corner_line_length-corner_line_length/4 )); 
+      opengl_lines . Append (Vect ( -corner_line_length,
+                                    corner_line_length,
+                                    corner_line_length-corner_line_length/4 ));
       opengl_lines_sizes . Append (1.0);
       opengl_lines_alphas . Append ( 1.0 );
 
@@ -371,7 +371,7 @@ class Selector  :  public Thing //  subclassed from Thing
   void DrawSelf ()
     { // LINES
       for (int i = 0; i < opengl_lines . Count() - 1; i+=2)
-        { glLineWidth(opengl_lines_sizes . Nth (i)); 
+        { glLineWidth(opengl_lines_sizes . Nth (i));
           glBegin(GL_LINES);
           glColor4f(1.0, 1.0, 1.0, opengl_lines_alphas . Nth (i));
           Vect line_start = opengl_lines . Nth (i);
@@ -379,7 +379,7 @@ class Selector  :  public Thing //  subclassed from Thing
           Vect line_stop = opengl_lines . Nth (i+1);
           glVertex (line_stop);
           glEnd();
-        }    
+        }
     }
 };
 
@@ -392,14 +392,14 @@ class CountryBorders  :  public DataSet
   //  We store the dataset's latitudes/longitudes as floats
   Trove <float64> latitude;
   Trove <float64> longitude;
-  
-  //  Borders are stored as a continuous line VBO, 
+
+  //  Borders are stored as a continuous line VBO,
   //  0 = invisible, 1 = visible
   Trove <int64> drawitude;
 
   CountryBorders ()  :  DataSet ()
     { SetName ("country_borders_dataset");
-      Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_" 
+      Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_"
             "360x180_coords_cleaner2.txt");
 
       //  Interpret the 0th and 1th column in the data as floats,
@@ -419,17 +419,17 @@ class CountryBorders  :  public DataSet
     //  Function to the VBO's vertex positions
     void UpdatePointLocations ()
       { for (int64 i = 4; i < Count (); i++)
-          { float64 mapped_longitude 
+          { float64 mapped_longitude
               = Range (longitude . Nth (i), 0, 360, -180, 180) - 0.2;
               //  todo: - .2 because the borders data is a tad off
 
-            float64 mapped_latitude 
+            float64 mapped_latitude
               = Range (latitude . Nth (i), 0, 180, 90, -90) + 0.25;
               //  todo: + .25 because the borders data is a tad off
 
             if(viewDataAsGlobe)
-              { Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS, 
-                                                              mapped_latitude, 
+              { Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS,
+                                                              mapped_latitude,
                                                               mapped_longitude);
 
                 SetPointLocation (i, globe_position . x,
@@ -514,7 +514,7 @@ class Earthquakes  :  public DataSet
   //  Variables used to stratify the Trove data
   float64 stratified_by_magnitude_factor; // 0 - 1.0 value of each quakes
                             //  stratifiedByMagnitudeFactorTarget value
-  Trove <float64> stratifiedByMagnitudeFactorTarget; // Stores the 
+  Trove <float64> stratifiedByMagnitudeFactorTarget; // Stores the
                             //  stratification band for each quake
   float64 stratifiedByMagnitudeOffset; //  mm distance for band increment
 
@@ -524,7 +524,7 @@ class Earthquakes  :  public DataSet
   Text *t_system_time;
   Text *t_system_magnitude;
 
-  //  Store and display Pointer info for the closest data point 
+  //  Store and display Pointer info for the closest data point
   Dictionary <Str, Text*> labels;
   Dictionary <Str, Selector*> labels_graphics;
 
@@ -532,7 +532,7 @@ class Earthquakes  :  public DataSet
     { SetName ("earthquake_dataset");
 
       // LOAD DATASET AND SET SYSTEM TIME VARIABLES
-      system_start_year = 2007; 
+      system_start_year = 2007;
       Load ("data/USGS_NEIC_" + INT (system_start_year) + "0101_20120906.txt");
 
       system_current_year = system_start_year;
@@ -568,7 +568,7 @@ class Earthquakes  :  public DataSet
       quake_depth_avg = Avg (depth);
       quake_magnitude_avg = Avg (magnitude);
 
-      system_depth = 0; 
+      system_depth = 0;
       system_magnitude = 1; //  Sets all data to a transparent value
 
       // STRATEFICATION VALUES
@@ -611,7 +611,7 @@ class Earthquakes  :  public DataSet
         quake_depth_factor = 0;
 
       victory_displacement_previous = Vect ();
-      
+
       //  Set and update the VBO values
       LoadShaders ("shaders/pointsizefog.vert", "shaders/null.frag");
       UpdatePointLocations ();
@@ -767,14 +767,14 @@ class Earthquakes  :  public DataSet
           }
       }
 
-  //  Function to set system_magnitude (quake magnitude filter)      
+  //  Function to set system_magnitude (quake magnitude filter)
   void SetSystemMagnitude (int num)
     { system_magnitude = num;
       UpdatePointColors ();
       t_system_magnitude -> SetString ("system_magnitude (+/- 0.5) = " + FLOAT (system_magnitude));
     }
 
-  //  Function to set system_magnitude (quake magnitude filter)      
+  //  Function to set system_magnitude (quake magnitude filter)
   void SetSystemMagnitude (BlurtEvent *e)
     { SetSystemMagnitude (Number (e -> Utterance ())); }
 
@@ -868,7 +868,7 @@ class Earthquakes  :  public DataSet
         }
     }
 
-  //  Function to handle Pointer interactions with individual data points      
+  //  Function to handle Pointer interactions with individual data points
   void IndividualQuakeInteract (PointingEvent *e)
     { //  If the pointer is currently being followed (aka it's new)
       if (!labels . KeyIsPresent (e -> Provenance ()))
@@ -877,7 +877,7 @@ class Earthquakes  :  public DataSet
           t -> SetObliviousness (true);
           t -> SetFontSize (Feld () -> Width () / 80.0);
           labels . Put (e -> Provenance (), t);
-          
+
           // Create a Selector for the Pointer
           Selector *s = new Selector ( 0 );
           s->provenance = e -> Provenance ();
@@ -889,21 +889,21 @@ class Earthquakes  :  public DataSet
       if (closest < 1  || closest > (magnitude . Count () - 1))
         { return; } //  returning because closest is possibly out of bounds
 
-      //  Find the magnitude of the closest point and 
+      //  Find the magnitude of the closest point and
       //  use it with/to ComputePointSize ()
       float m = 0;
       Vect quake_abs_loc;
       quake_abs_loc . SetInvalid ();
       if (closest > -1)
-        { //  Find the location of the quake in the Eathquakes object 
-          //  and then use Transform () to determine the absolute location
+        { //  Find the location of the quake in the Eathquakes object
+          //  and then use Wrangle () to determine the absolute location
           //  which takes into consideration translations and rotations
-          //  applied to the parent object (the DataSet class) 
-          quake_abs_loc = Transform (PointLocation (closest)); 
+          //  applied to the parent object (the DataSet class)
+          quake_abs_loc = Wrangle (PointLocation (closest));
           m = ComputePointSize (magnitude . Nth (closest));
           m *= .3;
         }
-      
+
       //  Update the Text label based on the closest point
       Text *t_update = labels . ValFromKey (e -> Provenance ());
       t_update -> SetString ("M" + Compose ("%.1f", magnitude . Nth (closest)) + ", " +
@@ -917,20 +917,20 @@ class Earthquakes  :  public DataSet
 
       //  Advanced : Create a new Pointing Event from the Camera to the quake data point
       PointingEvent *pe = new PointingEvent ();
-      pe -> SetPhysOrigAndThrough (Feld () -> Camera () -> ViewLoc (), 
-                                   Feld () -> Camera () -> ViewLoc () 
+      pe -> SetPhysOrigAndThrough (Feld () -> Camera () -> ViewLoc (),
+                                   Feld () -> Camera () -> ViewLoc ()
                                    + (quake_abs_loc - Feld () -> Camera () -> ViewLoc ()) . Norm ());
       //  Find the pe pointer intersection with the Feld ()
       Vect label_loc = Intersection (pe);
       //  Translate the text over to the right based on the Feld size
-      Vect trans_amt = label_loc + Feld () -> Over () * (Diag (Feld ()) / 100); 
+      Vect trans_amt = label_loc + Feld () -> Over () * (Diag (Feld ()) / 100);
       t_update -> SetTranslation (trans_amt);
 
       //  Update the Selector graphics based on the closest point location and magnitude
       Selector *s_update = labels_graphics . ValFromKey (e -> Provenance ());
       s_update -> RebuildScale ( m ); //  Based on the quake magnitude
       s_update -> SetTranslation (quake_abs_loc);
-       
+
     }
 
   //  GESTURE INTERACTIVITY WITH THE EARTHQUAKE DATA
@@ -940,7 +940,7 @@ class Earthquakes  :  public DataSet
         { IndividualQuakeInteract (e); }
     }
 
-  //  Pointer harden (click) interactions to stratify / expand the data 
+  //  Pointer harden (click) interactions to stratify / expand the data
   void PointingHarden (PointingEvent *e)
     { Str pointing_provenance = e -> Provenance ();
       Str search_string = "iOS"; //  For the iOS device
@@ -973,12 +973,12 @@ class Earthquakes  :  public DataSet
         }
       //  If the data has been filtered by depth or magnitude,
       if (system_depth != 0 && system_magnitude != 0)
-        { SetSystemMagnitude (0); } //  make the visible points brighter 
+        { SetSystemMagnitude (0); } //  make the visible points brighter
                                     //  by setting the magnitude to 0
 
       //  Update the system based on Victory gesture Norm () movement,
       if (system_depth == 0 && displacement . Mag () < 40)
-        { } 
+        { }
       else //  only if a displacement of over 40mm is detected (a quick push)
         { system_depth += .4 * displacement . Dot (- Feld () -> Norm ());
           INFORM ("Victory displacement . Mag () is " + FLOAT (displacement . Mag ()));
@@ -1011,7 +1011,7 @@ class Earthquakes  :  public DataSet
     }
 
   // KEYBOARD + MOUSE INTERACTIONS WITH THE EARTHQUAKE DATA
-  //  Pointer interactions (i.e. the mouse) 
+  //  Pointer interactions (i.e. the mouse)
   void PointingMove (PointingEvent *e)
     { IndividualQuakeInteract (e); }
 
@@ -1108,7 +1108,7 @@ class Earthquakes  :  public DataSet
           all_z_visible = false;
           system_magnitude = 0;
           UpdatePointColors ();
-          t_system_magnitude -> SetString ("system_magnitude (+/- 0.5) = " + 
+          t_system_magnitude -> SetString ("system_magnitude (+/- 0.5) = " +
                                             FLOAT (system_magnitude));
         }
 
@@ -1117,12 +1117,12 @@ class Earthquakes  :  public DataSet
         { auto_play = false;
           UpdatePointColors ();
         }
-      
+
       //  Toggles between all months of data and an individual month
       else if (Utters (e, "z"))
         { if (all_z_visible)
             { all_z_visible = false;
-              t_system_time -> SetString (INT (system_current_month) + 
+              t_system_time -> SetString (INT (system_current_month) +
                                           " / " + INT (system_current_year));
               system_magnitude = 0;
             }
@@ -1199,13 +1199,13 @@ class DataSystem  :  public Thing
       AppendKid (new Earthquakes ());
 
       //  To dampen the 3D scanner noise
-      //  apply a soften animation to the rotation 
+      //  apply a soften animation to the rotation
       RotationAnimateChase (0.75);
       //  and to the translation of the globe
       TranslationAnimateChase (.25);
     }
 
-  //  Function to reset Dataset to it's original settings      
+  //  Function to reset Dataset to it's original settings
   void OriginalSettings ()
     { //  DataSystem settings
       SetTranslationHard (Feld () -> Loc ());
@@ -1248,7 +1248,7 @@ class DataSystem  :  public Thing
   void Travail ()
     { //  Update distFromCamera for shaders
       distFromCamera = Loc () . DistFrom (Feld () -> Camera () -> ViewLoc ());
-      
+
       //  If an owner has had posession of the system for over 5 seconds
       //  kick them off.  Occasionally, noise in the system, like a coffee
       //  mug on your desk, can be interpreted as a fist and take ownership
@@ -1268,7 +1268,7 @@ class DataSystem  :  public Thing
       //  user can translate the system at a time.
       if (IsHeedless ())
         { Heed (e);    //  Set the current pointer's Provenance as the owner
-          ZeroTime (); //  Zero out CurTime ()  
+          ZeroTime (); //  Zero out CurTime ()
                        //  (tested for in Travail)
         }
     }
@@ -1290,28 +1290,28 @@ class DataSystem  :  public Thing
   // Rotation
   void FingerMove (PointingEvent *e)
     { if (viewDataAsGlobe)
-          { //  Rotate around the InverseTransformInPlace (Feld () -> Up ()) axis.
-            //  InverseTransformInPlace () determines the current Up () axis for the system 
+          { //  Rotate around the UnWrangleRay (Feld () -> Up ()) axis.
+            //  UnWrangleRay () determines the current Up () axis for the system
             //  ( taking into account currently applied rotations and translations )
             //  so that we can rotate the globe horizontally no matter what the orientation
-            IncRotation (InverseTransformInPlace (Feld () -> Up ()), 
+            IncRotation (UnWrangleRay (Feld () -> Up ()),
                          (e -> PhysOrigin () . x - e -> PrevOrigin () . x) / 250);
-            
-            //  Rotate vertically around the InverseTransformInPlace (Feld () -> Up ()) axis
-            IncRotation (InverseTransformInPlace (Feld () -> Over ()), 
+
+            //  Rotate vertically around the UnWrangleRay (Feld () -> Up ()) axis
+            IncRotation (UnWrangleRay (Feld () -> Over ()),
                          - (e -> PhysOrigin () . y - e -> PrevOrigin () . y) / 250);
           }
     }
 
   // iOS INTERACTIONS WITH THE DATASET CLASS
   void SwipeUp (BlurtEvent *e)
-    { IncRotation (InverseTransformInPlace (Feld () -> Over ()), -PI / 2); }
+    { IncRotation (UnWrangleRay (Feld () -> Over ()), -PI / 2); }
   void SwipeDown (BlurtEvent *e)
-    { IncRotation (InverseTransformInPlace (Feld () -> Over ()), PI / 2); }
+    { IncRotation (UnWrangleRay (Feld () -> Over ()), PI / 2); }
   void SwipeRight (BlurtEvent *e)
-    { IncRotation (InverseTransformInPlace (Feld () -> Up ()), PI / 2); }
+    { IncRotation (UnWrangleRay (Feld () -> Up ()), PI / 2); }
   void SwipeLeft (BlurtEvent *e)
-    { IncRotation (InverseTransformInPlace (Feld () -> Up ()), -PI / 2); }
+    { IncRotation (UnWrangleRay (Feld () -> Up ()), -PI / 2); }
 
   // KEYBOARD + MOUSE INTERACTIONS WITH THE DATASET CLASS
   // Mouse
@@ -1320,25 +1320,25 @@ class DataSystem  :  public Thing
       //  user can translate the system at a time.
       if (IsHeedless ())
         { Heed (e);    //  Set the current pointer's Provenance as the owner
-          ZeroTime (); //  Zero out CurTime ()  
+          ZeroTime (); //  Zero out CurTime ()
         }
     }
   void PointingSoften (PointingEvent *e)
     { StopHeeding (e); }
 
   void PointingMove (PointingEvent *e)
-    { if (IsHeeding (e)) //  if the current pointer is the owner  
-        { ZeroTime ();   //  Zero out CurTime ()  
+    { if (IsHeeding (e)) //  if the current pointer is the owner
+        { ZeroTime ();   //  Zero out CurTime ()
           if(viewDataAsGlobe) //  rotate the DataSystem
-            { //  Rotate around the InverseTransformInPlace (Feld () -> Up ()) axis.
-              //  InverseTransformInPlace () determines the current Up () axis for the system 
+            { //  Rotate around the UnWrangleRay (Feld () -> Up ()) axis.
+              //  UnWrangleRay () determines the current Up () axis for the system
               //  ( taking into account currently applied rotations and translations )
               //  so that we can rotate the globe horizontally no matter what the orientation
-              IncRotation (InverseTransformInPlace (Feld () -> Up ()), 
+              IncRotation (UnWrangleRay (Feld () -> Up ()),
                            IntersectionDiff (e, PhysLoc ()) . x / 100);
 
-              //  Rotate vertically around the InverseTransformInPlace (Feld () -> Up ()) axis
-              IncRotation (InverseTransformInPlace (Feld () -> Over ()), 
+              //  Rotate vertically around the UnWrangleRay (Feld () -> Up ()) axis
+              IncRotation (UnWrangleRay (Feld () -> Over ()),
                            - IntersectionDiff (e, PhysLoc ()) . y / 100);
             }
           else //  if !viewDataAsGlobe, translate the DataSystem
@@ -1350,13 +1350,13 @@ class DataSystem  :  public Thing
   void Blurt (BlurtEvent *e)
     { //  Mimic fist rotation for debugging without a 3D sensor
       if (Utters (e, "w")) //  Rotate negatively on the Over () axis
-        { IncRotation (InverseTransformInPlace (Feld () -> Over ()), -PI / 18); }
+        { IncRotation (UnWrangleRay (Feld () -> Over ()), -PI / 18); }
       else if (Utters (e, "s")) //  Rotate positively on the Over () axis
-        { IncRotation (InverseTransformInPlace (Feld () -> Over ()), PI / 18); }
+        { IncRotation (UnWrangleRay (Feld () -> Over ()), PI / 18); }
       else if (Utters (e, "a")) //  Rotate negatively on the Up () axis
-        { IncRotation (InverseTransformInPlace (Feld () -> Up ()), -PI / 18); }
+        { IncRotation (UnWrangleRay (Feld () -> Up ()), -PI / 18); }
       else if (Utters (e, "d")) //  Rotate positively on the Up () axis
-        { IncRotation (InverseTransformInPlace (Feld () -> Up ()), PI / 18); }
+        { IncRotation (UnWrangleRay (Feld () -> Up ()), PI / 18); }
 
       //  Mimic fist translation for debugging without a 3D sensor
       int64 translation_amount = 40;
@@ -1375,17 +1375,17 @@ class DataSystem  :  public Thing
 
       //  Turn on/off an automatic rotation of the DataSystem
       else if (Utters (e, ".")) //  On
-        { RotationAnimateSine (InverseTransformInPlace (Feld () -> Up ()), Rad (30), .08); }
+        { RotationAnimateSine (UnWrangleRay (Feld () -> Up ()), Rad (30), .08); }
       else if (Utters (e, ",")) //  Off
         { RotationAnimateChase (0.75);
-          SetRotation (InverseTransformInPlace (Feld () -> Up ()), 0);
+          SetRotation (UnWrangleRay (Feld () -> Up ()), 0);
         }
-      
+
       //  System reset to the Original Settings
       else if (Utters (e, "!"))
         { OriginalSettings (); }
 
-      //  Toggle viewDataAsGlobe (between globe and equirectangular modes) 
+      //  Toggle viewDataAsGlobe (between globe and equirectangular modes)
       else if (Utters (e, "@"))
         { RotationAnimateChase (0.75);
           SetRotation (Vect (0, 1, 0), 0);

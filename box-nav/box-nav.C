@@ -11,7 +11,7 @@
 // behavior.  They also listen for protein messages.
 class SystemNode  :  public Box
 { public:
-  
+
   int64 random_timer;
   Str harden_prov;
   bool am_tickled;
@@ -23,7 +23,7 @@ class SystemNode  :  public Box
   float64 rotate_node_angle;
   Trove <int64> connected_boxes;
 
-  SystemNode (const float64 &connection_sensitivity)  :  Box (), 
+  SystemNode (const float64 &connection_sensitivity)  :  Box (),
       am_tickled (false),
       should_beat (false),
       should_rotate (false)
@@ -36,7 +36,7 @@ class SystemNode  :  public Box
       TranslationAnimateChase (.5); // When the translation changes, animate it
       SetScale (.2);
       SetAlpha (.375);
-        
+
       // Based off this timer, the object will light up randomly
       // (between 3 and 60 seconds).
       random_timer = Random (3,60);
@@ -45,7 +45,7 @@ class SystemNode  :  public Box
 
       // Create a text object with the name of this SystemNode object
       Text *t = new Text (Name ());
-      t -> SetObliviousness (true);      // Make the text non-receptive to 
+      t -> SetObliviousness (true);      // Make the text non-receptive to
                                          // PointingInside events.
       t -> ColorAnimateQuadratic (0.25);
       t -> SetAlpha (0);                 // Hide initially.
@@ -67,11 +67,11 @@ class SystemNode  :  public Box
   bool IsTickledBy (PointingEvent *e) const
     { return (am_tickled  &&  e -> Provenance () == tickle_prov); }
 
-  // Extract data from the ingests (payload) of the protein message with the 
-  // Ingest function and providing the ingest key name.      
+  // Extract data from the ingests (payload) of the protein message with the
+  // Ingest function and providing the ingest key name.
   float64 CalculateDelay (const Protein &p) const
     { Vect sender_loc = Ingest <Vect> (p, "sender-loc");
-      float64 dist = PhysLoc () . DistFrom (sender_loc) 
+      float64 dist = PhysLoc () . DistFrom (sender_loc)
                   / Diag (Feld ());
       float64 delay = Range (dist, 0.0, 20.0, 0.0, 4.0);
       return delay;
@@ -86,7 +86,7 @@ class SystemNode  :  public Box
     }
 
   //  Any protein message that appears in the pool called 'love'
-  //  and has 'greenhouse' as one of its descrips will be delivered here.  
+  //  and has 'greenhouse' as one of its descrips will be delivered here.
   void Metabolize (const Protein &p)
     { if (HasDescrip (p, "beat-hardencheck-please"))
         { ProteinHardensMe (p)  ?  Tag ("hardened")  :  UnTag ("hardened");
@@ -101,7 +101,7 @@ class SystemNode  :  public Box
         }
     }
 
-  // This callback function is triggered after SetFireTimer is called with a 
+  // This callback function is triggered after SetFireTimer is called with a
   // given period of time.
   void Fired ()
     { SetAlphaHard (1.0);
@@ -180,7 +180,7 @@ class SystemNode  :  public Box
 };
 
 
-//  A class that extends Thing and manages 
+//  A class that extends Thing and manages
 //  PointingEvent interactions with the SystemNodes
 class DataSystem  :  public Thing
 { public:
@@ -208,19 +208,19 @@ class DataSystem  :  public Thing
         }
 
       RotationAnimateChase (1.05); // When the rotation changes, it will animate
-      TranslationAnimateChase (.25); // When the translation changes, it will 
+      TranslationAnimateChase (.25); // When the translation changes, it will
                                      // animate
     }
 
   void PointingMove (PointingEvent *e)
     { if (IsHeeding (e))
-        { IncRotation (InverseTransformInPlace (Feld () -> Up ()), 
+        { IncRotation (UnWrangleRay (Feld () -> Up ()),
                        IntersectionDiff (e, PhysLoc ()) . x / 200);
-          IncRotation (InverseTransformInPlace (Feld () -> Over ()), 
+          IncRotation (UnWrangleRay (Feld () -> Over ()),
                        - IntersectionDiff (e, PhysLoc ()) . y / 200);
         }
 
-      // update the position of the tickled SystemNode's text label to the 
+      // update the position of the tickled SystemNode's text label to the
       // intersection location of the pointing event and feld plus an offset
       for (int64 i = 0; i < KidCount (); ++i)
         { SystemNode *kid = NthKid <SystemNode> (i);
@@ -255,12 +255,12 @@ class DataSystem  :  public Thing
           if (! kid_other) continue;
 
           //  Line thickness is based on the z position
-          float64 line_width = 
+          float64 line_width =
               Range (kid_other -> PhysLoc () . z,
-                     -Feld () -> Width () * 4 + Feld () -> PhysLoc () . z, 
+                     -Feld () -> Width () * 4 + Feld () -> PhysLoc () . z,
                       Feld () -> Width () * 4 + Feld () -> PhysLoc () . z,
-                      1, 3); 
-          
+                      1, 3);
+
           glLineWidth (line_width);
           if (kid_other -> HasTag ("randomly-lit"))
             glColor4f (0.34, 0.57, 0.71, 1.0);
@@ -268,8 +268,8 @@ class DataSystem  :  public Thing
             glColor4f (0.34, 0.57, 0.71, .25);
 
           glBegin (GL_LINES);
-            glVertex (InverseTransform (n -> PhysLoc ()));
-            glVertex (InverseTransform (kid_other -> PhysLoc ()));
+            glVertex (UnWrangleLoc (n -> PhysLoc ()));
+            glVertex (UnWrangleLoc (kid_other -> PhysLoc ()));
           glEnd();
       }
     }
@@ -278,7 +278,7 @@ class DataSystem  :  public Thing
     { for (int64 i = 0  ;  i < KidCount ()  ;  ++i)
         { if (kids[i] -> HasTag ("hardened"))
             { kids[i] -> SetAlphaHard (1.0);
-              DrawConnectionsFromNode (NthKid <SystemNode> (i));                 
+              DrawConnectionsFromNode (NthKid <SystemNode> (i));
             }
         }
     }
@@ -309,8 +309,8 @@ class DataSystem  :  public Thing
     { Vect diff = ZeroVect;
       for (int64 i = 0  ;  i < KidCount ()  ;  ++i)
         { if (kids[i] -> HasTag ("hardened"))
-            { diff = InverseTransform (kids[i] -> PhysLoc ()) - 
-                     InverseTransform (Feld () -> Loc ());
+            { diff = UnWrangleLoc (kids[i] -> PhysLoc ()) -
+                     UnWrangleLoc (Feld () -> Loc ());
             }
         }
 
@@ -320,10 +320,10 @@ class DataSystem  :  public Thing
 
   void RightTheSystem ()
     { //  Correct horizontal angle
-      float64 correction_angle = InverseTransformInPlace (Up ()) 
+      float64 correction_angle = UnWrangleRay (Up ())
                                  . AngleWith (Feld () -> Up());
-      Vect correction_vector = Up () 
-                               . Cross (InverseTransformInPlace (Up ()));
+      Vect correction_vector = Up ()
+                               . Cross (UnWrangleRay (Up ()));
 
       IncRotation (correction_vector, correction_angle);
     }
@@ -337,7 +337,7 @@ class DataSystem  :  public Thing
         }
       if (Utters (e, "l"))
         { RotateSystem ( Vect (0, 1, 0), PI / 2); }
-      
+
       //  Beat
       if (Utters (e, "b") )//|| Utters (e, "boink"))
         { bool found_a_harden = false;
@@ -376,7 +376,7 @@ class DataSystem  :  public Thing
 
 void Setup ()
 { // Prevent any of the default events from registering and instead register
-  // several of our own for receiving a "VICTORY" blurt event with the 
+  // several of our own for receiving a "VICTORY" blurt event with the
   // Victory pose, "LLCOOLJ" blurt event with a single L-shape pose, and a
   // "WHATSUP" blurt event with a two handed L-shape pose.
   DoNotRegisterForDefaultEvents ();
