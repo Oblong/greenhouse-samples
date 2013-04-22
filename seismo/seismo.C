@@ -1375,7 +1375,7 @@ class DataSystem  :  public Thing
 
       //  Turn on/off an automatic rotation of the DataSystem
       else if (Utters (e, ".")) //  On
-        { RotationAnimateSine (UnWrangleRay (Feld () -> Up ()), Rad (30), .08); }
+        { RotationAnimateSine (UnWrangleRay (Feld () -> Up ()), Rad (30), 12.5); }
       else if (Utters (e, ",")) //  Off
         { RotationAnimateChase (0.75);
           SetRotation (UnWrangleRay (Feld () -> Up ()), 0);
