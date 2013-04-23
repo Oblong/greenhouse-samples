@@ -2,7 +2,7 @@
 /* (c)  oblong industries */
 
 #include "Greenhouse.h"
-#include "LeapListener.h"
+#include "LeapPointing.h"
 
 class Squirly : public Thing 
 { 
@@ -11,7 +11,7 @@ private:
   Color c;
 
 public:
-  
+
   Squirly () : Thing ()
     { c = Color (Random (1), Random (1), Random (1), 1.0); }
 
