@@ -1,13 +1,17 @@
 
-#include <Greenhouse.h>
+/* (c)  oblong industries */
+
+#include "Greenhouse.h"
 #include "LeapListener.h"
 
-class Squirly : public Thing { 
+class Squirly : public Thing 
+{ 
 private:
   Trove <Vect> verts;
   Color c;
 
 public:
+  
   Squirly () : Thing ()
     { c = Color (Random (1), Random (1), Random (1), 1.0); }
 
@@ -33,14 +37,18 @@ public:
     }
 };
 
-class Round : public Thing {
+
+class Round : public Thing 
+{
 private:
+
   float64 rad;
   Color col;
   Vect cent;
   float64 line_width;
 
 public:
+
   Round (float64 r, Vect c) : Thing ()
     { rad = r;
       cent = c;
@@ -68,17 +76,23 @@ public:
     }
 };
 
-class Splat : public Image {
+
+class Splat : public Image 
+{
 public:
+
   Splat () : Image ("images/splat" + INT ((int)Random(1, 5)) + ".png")
     { SetHeightUniformly (0.1 * Feld () -> Height ());
       TranslationAnimateQuadratic  (0.5);
     }
+
   void Heartbeat (float64 amplitude = 1.0, bool dynamic = false)
     { SetScale (Scale () + 0.1); }
 };
 
-class Leapy : public Thing, public LeapListener {
+
+class Leapy : public Thing, public LeapListener 
+{
 private:
   Dictionary <Str, Squirly *> squirlies;
   Dictionary <Str, Round *> rounds;
@@ -87,7 +101,7 @@ private:
 public:
   Leapy () : Thing (), LeapListener ()
     { SeedRandomizer ();
-      LeapListener::ListenForEvents <Leapy> (this);
+      ListenForLeapEvents (this, "leap");
     }
 
   void PointingMove (PointingEvent *e)
@@ -147,10 +161,9 @@ public:
       for (int i = 0; i < splats . Count (); i++)
         splats . Nth (i) -> Heartbeat ();
     }
-  
 };
 
-void Setup () {
-  RegisterForLeapPointing ();
+void Setup () 
+{ EnableLeapPointing ();
   new Leapy ();
 }
