@@ -109,9 +109,8 @@ class PointerDetector : public Thing
         t -> SetString ("Swipe Up");
 
       // Request an image upload
-      Protein p = Remote::ImageRequestProtein (e -> Provenance (), 
-                                    "Upload an image to set the background");
-      Remote::DepositImageRequest (p);
+      RequestImageFromMobileDevice (e -> Provenance (),
+                                   "Upload an image to set the background");
     }
 
   void SwipeDown (BlurtEvent *e)
@@ -119,9 +118,8 @@ class PointerDetector : public Thing
         t -> SetString ("Swipe Down");
 
       //  Request a text entry
-      Protein p = Remote::TextfieldRequestProtein (e -> Provenance (),
-                                         "Enter some text to display");
-      Remote::DepositTextfieldRequest (p);
+      RequestTextFromMobileDevice (e -> Provenance (),
+                                   "Enter some text to display");
     }
 
   void SwipeRight (BlurtEvent *e)
