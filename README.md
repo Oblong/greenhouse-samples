@@ -6,13 +6,13 @@ Greenhouse is a toolkit for creative coders; it is free for non-commercial and l
 
 Greenhouse is a minimalist version of Oblong's g-speak SDK. (g-speak is what we at Oblong use to build all our spatially-aware, multi-user, multi-platform, multi-device software.) We've taken the core parts of g-speak and distilled them into a C++ SDK whose goal is to be approachable, powerful, and concise.
 
-Greenhouse includes our own custom Kinect-processing pipeline, and hooks for working with Leap Motion, Wiimotes, mobile device input, etc.
+Greenhouse includes our own custom Kinect-processing pipeline, Leap Motion support, and hooks for using mobile devices as input.
 
-The Greenhouse SDK can be downloaded here:  [greenhouse.oblong.com](http://greenhouse.oblong.com/)
+Download the Greenhouse SDK here:  [greenhouse.oblong.com](http://greenhouse.oblong.com/)
 
 Pre-requisites
 ==============
-- These samples assume the Greenhouse SDK is already be installed.
+- These samples assume the Greenhouse SDK is already installed.
 - The Greenhouse SDK for Mac requires
     - Mac OS X 10.6 or greater
     - **Xcode**  
@@ -20,8 +20,6 @@ Pre-requisites
     - **Xcode Command Line Tools**  
       Available from: within Xcode.  
       Select Preferences -> Downloads -> Command Line Tools
-    - **X11** or **XQuartz**  
-      Available from: http://xquartz.macosforge.org
 
 
 About the samples
@@ -47,7 +45,16 @@ For runnable samples that focus on using specific features of the Greenhouse API
 **empty-proj**
 
   - The empty sample provides a handy place to paste in code from samples on the [Greenhouse API reference](http://greenhouse.oblong.com/reference.html)
-  
+
+**hantenna**
+
+  - handling Kinect input
+  - learning the set of gestures that the hantenna pipeline supports
+
+**leap**
+
+  - handling Leap Motion input
+
 **heartbeats3D**
   
   - using a Thing as a container for other objects
