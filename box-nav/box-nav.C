@@ -214,9 +214,9 @@ class DataSystem  :  public Thing
 
   void PointingMove (PointingEvent *e)
     { if (IsHeeding (e))
-        { IncRotation (UnWrangleRay (Feld () -> Up ()),
+        { IncRotation (WrangleRay (Feld () -> Up ()),
                        IntersectionDiff (e, PhysLoc ()) . x / 200);
-          IncRotation (UnWrangleRay (Feld () -> Over ()),
+          IncRotation (WrangleRay (Feld () -> Over ()),
                        - IntersectionDiff (e, PhysLoc ()) . y / 200);
         }
 
@@ -268,8 +268,8 @@ class DataSystem  :  public Thing
             glColor4f (0.34, 0.57, 0.71, .25);
 
           glBegin (GL_LINES);
-            glVertex (UnWrangleLoc (n -> PhysLoc ()));
-            glVertex (UnWrangleLoc (kid_other -> PhysLoc ()));
+            glVertex (WrangleLoc (n -> PhysLoc ()));
+            glVertex (WrangleLoc (kid_other -> PhysLoc ()));
           glEnd();
       }
     }
@@ -309,8 +309,8 @@ class DataSystem  :  public Thing
     { Vect diff = ZeroVect;
       for (int64 i = 0  ;  i < KidCount ()  ;  ++i)
         { if (kids[i] -> HasTag ("hardened"))
-            { diff = UnWrangleLoc (kids[i] -> PhysLoc ()) -
-                     UnWrangleLoc (Feld () -> Loc ());
+            { diff = WrangleLoc (kids[i] -> PhysLoc ()) -
+                     WrangleLoc (Feld () -> Loc ());
             }
         }
 
@@ -320,10 +320,10 @@ class DataSystem  :  public Thing
 
   void RightTheSystem ()
     { //  Correct horizontal angle
-      float64 correction_angle = UnWrangleRay (Up ())
+      float64 correction_angle = WrangleRay (Up ())
                                  . AngleWith (Feld () -> Up());
       Vect correction_vector = Up ()
-                               . Cross (UnWrangleRay (Up ()));
+                               . Cross (WrangleRay (Up ()));
 
       IncRotation (correction_vector, correction_angle);
     }

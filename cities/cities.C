@@ -99,9 +99,9 @@ class CountryBorders  :  public DataSet
   void PointingMove (PointingEvent *e)
     { //  Drag the object
       if (IsHeeding (e))
-        { IncRotation (UnWrangleRay (Feld () -> Up ()),
+        { IncRotation (WrangleRay (Feld () -> Up ()),
                        IntersectionDiff (e, Loc ()) . x / 200);
-          IncRotation (UnWrangleRay (Feld () -> Over ()),
+          IncRotation (WrangleRay (Feld () -> Over ()),
                        - IntersectionDiff (e, Loc ()) . y / 200);
         }
     }
@@ -123,9 +123,9 @@ class CountryBorders  :  public DataSet
     }
 
   void FingerMove (PointingEvent *e)
-    { IncRotation (UnWrangleRay (Feld () -> Up ()),
+    { IncRotation (WrangleRay (Feld () -> Up ()),
                    (e -> PhysOrigin () . x - e -> PrevOrigin () . x) / 250);
-      IncRotation (UnWrangleRay (Feld () -> Over ()),
+      IncRotation (WrangleRay (Feld () -> Over ()),
                    -(e -> PhysOrigin () . y - e -> PrevOrigin () . y) / 250);
     }
 };
@@ -208,7 +208,7 @@ class Cities  :  public DataSet
         SetPointSize (closest, 4.0);
 
       //  todo: document this
-      Vect abs_loc = WrangleLoc (PointLocation (closest));
+      Vect abs_loc = UnWrangleLoc (PointLocation (closest));
 
       UpdateLabel (e, city_name[closest], abs_loc);
     }

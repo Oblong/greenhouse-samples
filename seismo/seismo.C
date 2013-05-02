@@ -896,10 +896,10 @@ class Earthquakes  :  public DataSet
       quake_abs_loc . SetInvalid ();
       if (closest > -1)
         { //  Find the location of the quake in the Eathquakes object
-          //  and then use WrangleLoc () to determine the absolute location
+          //  and then use UnWrangleLoc () to determine the absolute location
           //  which takes into consideration translations and rotations
           //  applied to the parent object (the DataSet class)
-          quake_abs_loc = WrangleLoc (PointLocation (closest));
+          quake_abs_loc = UnWrangleLoc (PointLocation (closest));
           m = ComputePointSize (magnitude . Nth (closest));
           m *= .3;
         }
@@ -1290,28 +1290,28 @@ class DataSystem  :  public Thing
   // Rotation
   void FingerMove (PointingEvent *e)
     { if (viewDataAsGlobe)
-          { //  Rotate around the UnWrangleRay (Feld () -> Up ()) axis.
-            //  UnWrangleRay () determines the current Up () axis for the system
+          { //  Rotate around the WrangleRay (Feld () -> Up ()) axis.
+            //  WrangleRay () determines the current Up () axis for the system
             //  ( taking into account currently applied rotations and translations )
             //  so that we can rotate the globe horizontally no matter what the orientation
-            IncRotation (UnWrangleRay (Feld () -> Up ()),
+            IncRotation (WrangleRay (Feld () -> Up ()),
                          (e -> PhysOrigin () . x - e -> PrevOrigin () . x) / 250);
 
-            //  Rotate vertically around the UnWrangleRay (Feld () -> Up ()) axis
-            IncRotation (UnWrangleRay (Feld () -> Over ()),
+            //  Rotate vertically around the WrangleRay (Feld () -> Up ()) axis
+            IncRotation (WrangleRay (Feld () -> Over ()),
                          - (e -> PhysOrigin () . y - e -> PrevOrigin () . y) / 250);
           }
     }
 
   // iOS INTERACTIONS WITH THE DATASET CLASS
   void SwipeUp (BlurtEvent *e)
-    { IncRotation (UnWrangleRay (Feld () -> Over ()), -PI / 2); }
+    { IncRotation (WrangleRay (Feld () -> Over ()), -PI / 2); }
   void SwipeDown (BlurtEvent *e)
-    { IncRotation (UnWrangleRay (Feld () -> Over ()), PI / 2); }
+    { IncRotation (WrangleRay (Feld () -> Over ()), PI / 2); }
   void SwipeRight (BlurtEvent *e)
-    { IncRotation (UnWrangleRay (Feld () -> Up ()), PI / 2); }
+    { IncRotation (WrangleRay (Feld () -> Up ()), PI / 2); }
   void SwipeLeft (BlurtEvent *e)
-    { IncRotation (UnWrangleRay (Feld () -> Up ()), -PI / 2); }
+    { IncRotation (WrangleRay (Feld () -> Up ()), -PI / 2); }
 
   // KEYBOARD + MOUSE INTERACTIONS WITH THE DATASET CLASS
   // Mouse
@@ -1330,15 +1330,15 @@ class DataSystem  :  public Thing
     { if (IsHeeding (e)) //  if the current pointer is the owner
         { ZeroTime ();   //  Zero out CurTime ()
           if(viewDataAsGlobe) //  rotate the DataSystem
-            { //  Rotate around the UnWrangleRay (Feld () -> Up ()) axis.
-              //  UnWrangleRay () determines the current Up () axis for the system
+            { //  Rotate around the WrangleRay (Feld () -> Up ()) axis.
+              //  WrangleRay () determines the current Up () axis for the system
               //  ( taking into account currently applied rotations and translations )
               //  so that we can rotate the globe horizontally no matter what the orientation
-              IncRotation (UnWrangleRay (Feld () -> Up ()),
+              IncRotation (WrangleRay (Feld () -> Up ()),
                            IntersectionDiff (e, PhysLoc ()) . x / 100);
 
-              //  Rotate vertically around the UnWrangleRay (Feld () -> Up ()) axis
-              IncRotation (UnWrangleRay (Feld () -> Over ()),
+              //  Rotate vertically around the WrangleRay (Feld () -> Up ()) axis
+              IncRotation (WrangleRay (Feld () -> Over ()),
                            - IntersectionDiff (e, PhysLoc ()) . y / 100);
             }
           else //  if !viewDataAsGlobe, translate the DataSystem
@@ -1350,13 +1350,13 @@ class DataSystem  :  public Thing
   void Blurt (BlurtEvent *e)
     { //  Mimic fist rotation for debugging without a 3D sensor
       if (Utters (e, "w")) //  Rotate negatively on the Over () axis
-        { IncRotation (UnWrangleRay (Feld () -> Over ()), -PI / 18); }
+        { IncRotation (WrangleRay (Feld () -> Over ()), -PI / 18); }
       else if (Utters (e, "s")) //  Rotate positively on the Over () axis
-        { IncRotation (UnWrangleRay (Feld () -> Over ()), PI / 18); }
+        { IncRotation (WrangleRay (Feld () -> Over ()), PI / 18); }
       else if (Utters (e, "a")) //  Rotate negatively on the Up () axis
-        { IncRotation (UnWrangleRay (Feld () -> Up ()), -PI / 18); }
+        { IncRotation (WrangleRay (Feld () -> Up ()), -PI / 18); }
       else if (Utters (e, "d")) //  Rotate positively on the Up () axis
-        { IncRotation (UnWrangleRay (Feld () -> Up ()), PI / 18); }
+        { IncRotation (WrangleRay (Feld () -> Up ()), PI / 18); }
 
       //  Mimic fist translation for debugging without a 3D sensor
       int64 translation_amount = 40;
@@ -1375,10 +1375,10 @@ class DataSystem  :  public Thing
 
       //  Turn on/off an automatic rotation of the DataSystem
       else if (Utters (e, ".")) //  On
-        { RotationAnimateSine (UnWrangleRay (Feld () -> Up ()), Rad (30), 12.5); }
+        { RotationAnimateSine (WrangleRay (Feld () -> Up ()), Rad (30), 12.5); }
       else if (Utters (e, ",")) //  Off
         { RotationAnimateChase (0.75);
-          SetRotation (UnWrangleRay (Feld () -> Up ()), 0);
+          SetRotation (WrangleRay (Feld () -> Up ()), 0);
         }
 
       //  System reset to the Original Settings
