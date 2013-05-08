@@ -23,6 +23,11 @@ CXXFLAGS = -Wempty-body \
   -g -O3 -std=gnu++0x
 
 LDFLAGS=`PKG_CONFIG_PATH=$(GH_PKG_CONFIG) --libs --static libGreenhouse`
+MAGICKFLAGS = \
+	-I/opt/oblong/deps-64-8/include/ImageMagick \
+	-I.. \
+	-DMAGICKCORE_HDRI_ENABLE=0 \
+	-DMAGICKCORE_QUANTUM_DEPTH=16 
 
 NO_COLOR=\x1b[0m
 OK_COLOR=\x1b[36;21m
@@ -45,6 +50,5 @@ clean:
 	-rm radiology
 
 radiology: radiology.C
-	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@
+	${CXX} $^ ${LDFLAGS} ${MAGICKFLAGS} -lGreenhouse -lMagick++6-Q16 -lMagickCore6-Q16 ${CXXFLAGS} -o $@
 	@echo	"$(OK_COLOR)$$EXP_STR$(NO_COLOR)"
-
