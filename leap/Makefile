@@ -42,7 +42,7 @@ export EXP_STR
 
 all: leap
 clean:
-	-rm *.o leap
+	-rm leap
 
 leap: leap.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

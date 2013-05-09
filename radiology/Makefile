@@ -42,7 +42,7 @@ export EXP_STR
 
 all: radiology
 clean:
-	-rm *.o radiology
+	-rm radiology
 
 radiology: radiology.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

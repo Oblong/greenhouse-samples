@@ -42,7 +42,7 @@ export EXP_STR
 
 all: hantenna
 clean:
-	-rm *.o hantenna
+	-rm hantenna
 
 hantenna: hantenna.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

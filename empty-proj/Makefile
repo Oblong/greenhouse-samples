@@ -42,7 +42,7 @@ export EXP_STR
 
 all: empty-proj
 clean:
-	-rm *.o empty-proj
+	-rm empty-proj
 
 empty-proj: empty-proj.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

@@ -42,7 +42,7 @@ export EXP_STR
 
 all: heartbeats3D
 clean:
-	-rm *.o heartbeats3D
+	-rm heartbeats3D
 
 heartbeats3D: heartbeats3D.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

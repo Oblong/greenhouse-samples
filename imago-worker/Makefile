@@ -42,7 +42,7 @@ export EXP_STR
 
 all: imago-worker
 clean:
-	-rm *.o imago-worker
+	-rm imago-worker
 
 imago-worker: imago-worker.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

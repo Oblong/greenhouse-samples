@@ -42,7 +42,7 @@ export EXP_STR
 
 all: cities
 clean:
-	-rm *.o cities
+	-rm cities
 
 cities: cities.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

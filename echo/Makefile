@@ -42,7 +42,7 @@ export EXP_STR
 
 all: echo
 clean:
-	-rm *.o echo
+	-rm echo
 
 echo: echo.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

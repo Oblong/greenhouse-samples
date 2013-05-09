@@ -42,7 +42,7 @@ export EXP_STR
 
 all: flocking-hearts
 clean:
-	-rm *.o flocking-hearts
+	-rm flocking-hearts
 
 flocking-hearts: flocking-hearts.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

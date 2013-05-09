@@ -42,7 +42,7 @@ export EXP_STR
 
 all: seismo
 clean:
-	-rm *.o seismo
+	-rm seismo
 
 seismo: seismo.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

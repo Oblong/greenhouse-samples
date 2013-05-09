@@ -42,7 +42,7 @@ export EXP_STR
 
 all: iO
 clean:
-	-rm *.o iO
+	-rm iO
 
 iO: iO.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

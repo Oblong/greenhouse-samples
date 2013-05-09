@@ -42,7 +42,7 @@ export EXP_STR
 
 all: hydra
 clean:
-	-rm *.o hydra
+	-rm hydra
 
 hydra: hydra.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

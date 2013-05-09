@@ -42,7 +42,7 @@ export EXP_STR
 
 all: box-nav
 clean:
-	-rm *.o box-nav
+	-rm box-nav
 
 box-nav: box-nav.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@

@@ -42,7 +42,7 @@ export EXP_STR
 
 all: helloworld
 clean:
-	-rm *.o helloworld
+	-rm helloworld
 
 helloworld: helloworld.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@
