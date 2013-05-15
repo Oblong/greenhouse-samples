@@ -22,23 +22,23 @@ public:
           current_gesture = "\\/\\/-";
         }
       if (Utters (e, "^^\\/>") || Utters (e, "s"))
-        { SetImage (FetchImageData ("images/hantenna/h_^^V>.png"));
+        { SetImage (FetchImageData ("images/hantenna/h_^^V}.png"));
           current_gesture = "^^\\/>";
         }
       if (Utters (e, "||||-") || Utters (e, "d"))
-        { SetImage (FetchImageData ("images/hantenna/h_||||-.png"));
+        { SetImage (FetchImageData ("images/hantenna/h_!!!!-.png"));
           current_gesture = "||||-";
         }
       if (Utters (e, "^^^|-") || Utters (e, "f"))
-        { SetImage (FetchImageData ("images/hantenna/h_^^^|-.png"));
+        { SetImage (FetchImageData ("images/hantenna/h_^^^!-.png"));
           current_gesture = "^^^|-";
         }
       if (Utters (e, "^^^|>") || Utters (e, "g"))
-        { SetImage (FetchImageData ("images/hantenna/h_^^^|>.png"));
+        { SetImage (FetchImageData ("images/hantenna/h_^^^!}.png"));
           current_gesture = "^^^|>";
         }
       if (Utters (e, "^^^^>") || Utters (e, "h"))
-        { SetImage (FetchImageData ("images/hantenna/h_^^^^>.png"));
+        { SetImage (FetchImageData ("images/hantenna/h_^^^^}.png"));
           current_gesture = "^^^^>";
         }
       if (Utters (e, "_____") || Utters (e, "j"))
@@ -59,11 +59,11 @@ public:
 
   GestureTarget (const Str &s, const Str &g)  :  Image (s)
     { gestures . Put ("\\/\\/-", "images/hantenna/h2_VV-.png");
-      gestures . Put ("^^\\/>",  "images/hantenna/h2_^^V>.png");
-      gestures . Put ("||||-",   "images/hantenna/h2_||||-.png");
-      gestures . Put ("^^^|-",   "images/hantenna/h2_^^^|-.png");
-      gestures . Put ("^^^|>",   "images/hantenna/h2_^^^|>.png");
-      gestures . Put ("^^^^>",   "images/hantenna/h2_^^^^>.png");
+      gestures . Put ("^^\\/>",  "images/hantenna/h2_^^V}.png");
+      gestures . Put ("||||-",   "images/hantenna/h2_!!!!-.png");
+      gestures . Put ("^^^|-",   "images/hantenna/h2_^^^!-.png");
+      gestures . Put ("^^^|>",   "images/hantenna/h2_^^^!}.png");
+      gestures . Put ("^^^^>",   "images/hantenna/h2_^^^^}.png");
 
       SetHeightUniformly (100);
       SetCornerRadius (0);
@@ -113,7 +113,7 @@ void Setup ()
   t1 -> IncTranslation (Feld () -> Over () * Feld () -> Width () * .25
                         + Feld () -> Up () * Feld () -> Height () * .35);
 
-  GestureTarget *itt = new GestureTarget ("images/hantenna/h2_^^^|>.png",
+  GestureTarget *itt = new GestureTarget ("images/hantenna/h2_^^^!}.png",
                                           "^^^|>");
   itt -> SlapOnFeld ();
   itt -> IncTranslation (Feld () -> Over () * Feld () -> Width () * -.25);
