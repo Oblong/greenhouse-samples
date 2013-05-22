@@ -6,8 +6,8 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 GH_PATH=/opt/oblong/greenhouse
-DEPS_PATH=/opt/oblong/deps-64-8
-GH_PKG_CONFIG=$(PKG_CONFIG_PATH):$(GH_PATH)/lib/pkgconfig $(DEPS_PATH)/bin/pkg-config
+PATH:=/opt/oblong/deps-64-8/bin:$(PATH)
+GH_PKG_CONFIG=$(PKG_CONFIG_PATH):$(GH_PATH)/lib/pkgconfig pkg-config
 
 CXXFLAGS = -Wempty-body \
   -fdiagnostics-show-option \
