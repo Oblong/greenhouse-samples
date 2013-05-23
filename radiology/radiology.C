@@ -17,7 +17,7 @@ static int cmp_str (const Str &a, const Str &b)
 
 class Skelly : public Thing
 { public:
-  
+
   int64 top_index;
   int64 start_index;
   Trove <Image *> layers;
@@ -56,7 +56,7 @@ class Skelly : public Thing
     top = (top > 0)  ?  top  :  0;
     if (top == top_index)
       return;
-    
+
     if (current_layer)
       current_layer -> SetAlpha (0.0);
     current_layer = layers[top];
@@ -72,7 +72,7 @@ class Skelly : public Thing
       { WARN ("Could not open directory: " + dir);
         return imgs;
       }
-    
+
     DIR *in_dir;
     struct dirent *entry;
     INFORM ("opening directory: " + full_path);
@@ -179,7 +179,7 @@ public:
         UpdateStart ();
       }
     if (IsHeeding (e))
-      { float64 d_y = e -> LinearOffset () . Dot (Norm ());
+      { float64 d_y = e -> CumuLinearOffset () . Dot (Norm ());
         // calculate the percent of movement over a foot
         // figure a person only wants to move their fist about a foot
         d_y = -d_y / 300.0;
@@ -324,7 +324,7 @@ public:
     r_arrow -> SetHeightUniformly (0.8 * gallery_height);
     r_arrow -> SetAdjColor (disabled);
     AppendKid (r_arrow);
-    
+
     scroll_region = new Thing ();
     scroll_region -> TranslationAnimateQuadratic (0.2);
     AppendKid (scroll_region);
@@ -353,7 +353,7 @@ public:
       { l_arrow -> StopHeeding (e);
         l_arrow -> SetAdjColor (enabled);
       }
-      
+
     if (r_arrow -> HitCheck (e))
         { if (CanScrollLeft ())
           { r_arrow -> Heed (e);
@@ -375,7 +375,7 @@ public:
   { if (CanScrollRight ())
       ScrollRight ();
   }
-  
+
   void SwipeUp (BlurtEvent *e)
   { TakeSnapshot (); }
 
@@ -412,7 +412,7 @@ public:
     AppendToGallery (snap);
     ZeroTime ();
   }
-  
+
   void AppendToGallery (GalleryImg *img)
   { rightmost_trans += over_offset * Over ();
     img -> SetTranslation (rightmost_trans);
@@ -442,7 +442,7 @@ public:
       return true;
     return false;
   }
-  
+
   void ScrollLeft ()
   { INFORM ("scroll left");
     scroll_region -> IncTranslation (-over_offset * Over ());
@@ -476,10 +476,10 @@ void Setup ()
 { Magick::InitializeMagick (NULL);
 
   SetFeldsColor (Color (0.0, 1.0));
-  //  Use logical ordering, where the last-created object 
+  //  Use logical ordering, where the last-created object
   //  is drawn on top
   SetDepthSorting (false);
-  
+
   Image *bg = new Image ();
   bg -> SetImage (NULL);
   bg -> SetBackingColor (Color (0.0, 1.0));
@@ -507,6 +507,6 @@ void Setup ()
   DoNotRegisterForDefaultEvents ();
   RegisterDisplacement ("pushback", OpenPalmFingersTogetherPose);
   RegisterTwoHandBlurt ("snapshot", LShapePose, LShapePose);
-  
+
   legend = new InfoGraphic ();
 }
