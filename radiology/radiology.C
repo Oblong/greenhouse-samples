@@ -235,7 +235,8 @@ private:
 public:
   GalleryImg (int64 skelly1Layer, int64 skelly2Layer, float64 legend_line)
     : Image ()
-  { skellyLayers = v2int64 {skelly1Layer, skelly2Layer};
+  { skellyLayers . x = skelly1Layer;
+    skellyLayers . y = skelly2Layer;
     line_loc = legend_line;
     hidden = false;
     ColorAnimateQuadratic (0.25);
