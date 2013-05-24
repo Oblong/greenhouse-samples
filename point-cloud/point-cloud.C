@@ -11,8 +11,9 @@ public:
     : verts (*this, 0),
       norms (*this, 3)
   { Load (filename);
-    SetPointLocations (verts);
-    SetPointNorms (norms);
+    SetLocations (verts);
+    SetNorms (norms);
+    SetUseNorms (true);
     SetReady (true);
   }
 
