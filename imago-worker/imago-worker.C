@@ -77,7 +77,7 @@ struct Listener  :  public Thing
     { INFORM (p);
       INFORM ("image-request protein received, responding...");
       ImageData *tex = FetchImageData ("images/"
-                                       + INT ((page++) % 6 + 1) + ".jpg");
+                                       + ToStr ((page++) % 6 + 1) + ".jpg");
       if (tex)
         { Protein response = ProteinWithDescrip ("image-result");
           AppendIngest  (response, "image-texture", tex);

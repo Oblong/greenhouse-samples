@@ -81,7 +81,7 @@ class Splat : public Image
 {
 public:
 
-  Splat () : Image ("images/splat" + INT ((int)Random(1, 5)) + ".png")
+  Splat () : Image (Str::Format ("images/splat%d.png", ((int)Random (1,5))))
     { SetHeightUniformly (0.1 * Feld () -> Height ());
       TranslationAnimateQuadratic  (0.5);
     }

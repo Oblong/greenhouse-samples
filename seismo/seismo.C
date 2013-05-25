@@ -533,7 +533,7 @@ class Earthquakes  :  public DataSet
 
       // LOAD DATASET AND SET SYSTEM TIME VARIABLES
       system_start_year = 2007;
-      Load ("data/seismo/USGS_NEIC_" + INT (system_start_year) + "0101_20120906.txt");
+      Load ("data/seismo/USGS_NEIC_" + ToStr (system_start_year) + "0101_20120906.txt");
 
       system_current_year = system_start_year;
       system_current_month = 01;
@@ -619,32 +619,32 @@ class Earthquakes  :  public DataSet
       updatePointSize ();
       DataReady ();
 
-      INFORM (INT (Count ()) + " EARTHQUAKES LOADED / quake_depth_max = " +
-            INT (quake_depth_max) + ", quake_depth_min = " + INT (quake_depth_min) +
-            ", quake_depth_avg = " + FLOAT (quake_depth_avg) +
-            " / quake_magnitude_max = " + FLOAT (quake_magnitude_max) +
-            ", quake_magnitude_min = " + FLOAT (quake_magnitude_min) +
-            ", quake_magnitude_avg = " + FLOAT (quake_magnitude_avg) +
-            " / quake_longitude_max = " + FLOAT (quake_longitude_max) +
-            ", quake_longitude_min = " + FLOAT (quake_longitude_min) +
-            " / quake_latitude_max = " + FLOAT (quake_latitude_max) +
-            ", quake_latitude_min = " + FLOAT (quake_latitude_min) );
+      INFORM (ToStr (Count ()) + " EARTHQUAKES LOADED / quake_depth_max = " +
+            ToStr (quake_depth_max) + ", quake_depth_min = " + ToStr (quake_depth_min) +
+            ", quake_depth_avg = " + ToStr (quake_depth_avg) +
+            " / quake_magnitude_max = " + ToStr (quake_magnitude_max) +
+            ", quake_magnitude_min = " + ToStr (quake_magnitude_min) +
+            ", quake_magnitude_avg = " + ToStr (quake_magnitude_avg) +
+            " / quake_longitude_max = " + ToStr (quake_longitude_max) +
+            ", quake_longitude_min = " + ToStr (quake_longitude_min) +
+            " / quake_latitude_max = " + ToStr (quake_latitude_max) +
+            ", quake_latitude_min = " + ToStr (quake_latitude_min) );
 
       //  Set the UI text elements' values
-      t_system_magnitude = new Text ("t_system_magnitude"); // + FLOAT (system_magnitude_max));
+      t_system_magnitude = new Text ("t_system_magnitude"); // + ToStr (system_magnitude_max));
       t_system_magnitude -> SetTranslation (Inside (Feld (), Vect (.475, -.39, -.01)));
       t_system_magnitude -> SetFontSize (Feld () -> Width () / 80);
       t_system_magnitude -> SetAlignmentRight ();
       t_system_magnitude -> SetString ("system_magnitude = 0.0-10.0");
 
-      t_system_depth = new Text ("t_system_depth"); // + FLOAT (system_magnitude_max));
+      t_system_depth = new Text ("t_system_depth"); // + ToStr (system_magnitude_max));
       t_system_depth -> SetTranslation (Inside (Feld (), Vect (.475, -.41, -.01)));
       t_system_depth -> SetFontSize (Feld () -> Width () / 80);
       t_system_depth -> SetAlignmentRight ();
-      t_system_depth -> SetString ("system_depth = " + INT (system_depth) + "km");
+      t_system_depth -> SetString ("system_depth = " + ToStr (system_depth) + "km");
 
       t_quakes_within_range = new Text ("t_quakes_within_range");
-                                        // + FLOAT (system_magnitude_max));
+                                        // + ToStr (system_magnitude_max));
       t_quakes_within_range -> SetTranslation (Inside (Feld (), Vect (.475, -.43, -.01)));
       t_quakes_within_range -> SetFontSize (Feld () -> Width () / 80);
       t_quakes_within_range -> SetAlignmentRight ();
@@ -652,19 +652,19 @@ class Earthquakes  :  public DataSet
           for (int64 i = 0; i < Count (); i++)
             if ( Abs (depth . Nth (i) - system_depth) < 10)
               quakes_within_range++;
-      t_quakes_within_range -> SetString ("quakes_within_range (+/- 10km) = " + INT (quakes_within_range));
+      t_quakes_within_range -> SetString ("quakes_within_range (+/- 10km) = " + ToStr (quakes_within_range));
 
-      t_system_time = new Text ("t_system_time"); // + FLOAT (system_magnitude_max));
+      t_system_time = new Text ("t_system_time"); // + ToStr (system_magnitude_max));
       t_system_time -> SetTranslation (Inside (Feld (), Vect (.475, .45, -.01)));
       t_system_time -> SetFontSize (Feld () -> Width () / 60);
       t_system_time -> SetAlignmentRight ();
-      // t_system_time -> SetString ("system_current_year = " + INT (system_current_year) + " / " + "system_current_month = " + INT (system_current_month));
+      // t_system_time -> SetString ("system_current_year = " + ToStr (system_current_year) + " / " + "system_current_month = " + ToStr (system_current_month));
       if (all_z_visible)
-        t_system_time -> SetString (INT (system_start_year) + " - 2012");
+        t_system_time -> SetString (ToStr (system_start_year) + " - 2012");
       else if (system_current_month < 10)
-        t_system_time -> SetString ("0" + INT (system_current_month) + " / " + INT (system_current_year));
+        t_system_time -> SetString ("0" + ToStr (system_current_month) + " / " + ToStr (system_current_year));
       else
-        t_system_time -> SetString (INT (system_current_month) + " / " + INT (system_current_year));
+        t_system_time -> SetString (ToStr (system_current_month) + " / " + ToStr (system_current_year));
 
       //  Set the rate of Fired ()
       SetFireTimer (1.0);
@@ -755,8 +755,8 @@ class Earthquakes  :  public DataSet
           { SetShaderUniform ("fog_radius", GLOBE_RADIUS);
             SetShaderUniform ("system_distance", distFromCamera);
             SetShaderUniform ("feld_size", Diag (Feld ())*2);
-            // INFORM ("system_distance / distFromCamera = " + FLOAT(distFromCamera));
-            // INFORM ("Diag (Feld ()) = " + FLOAT (Diag (Feld ())));
+            // INFORM ("system_distance / distFromCamera = " + ToStr(distFromCamera));
+            // INFORM ("Diag (Feld ()) = " + ToStr (Diag (Feld ())));
             SetShaderUniform ("camera_position", Feld () -> Camera () -> ViewLoc ());
           }
         else
@@ -771,7 +771,7 @@ class Earthquakes  :  public DataSet
   void SetSystemMagnitude (int num)
     { system_magnitude = num;
       UpdatePointColors ();
-      t_system_magnitude -> SetString ("system_magnitude (+/- 0.5) = " + FLOAT (system_magnitude));
+      t_system_magnitude -> SetString ("system_magnitude (+/- 0.5) = " + ToStr (system_magnitude));
     }
 
   //  Function to set system_magnitude (quake magnitude filter)
@@ -842,9 +842,9 @@ class Earthquakes  :  public DataSet
           UpdatePointColors ();
 
           if (system_current_month < 10)
-            t_system_time -> SetString ("0" + INT (system_current_month) + " / " + INT (system_current_year));
+            t_system_time -> SetString ("0" + ToStr (system_current_month) + " / " + ToStr (system_current_year));
           else
-            t_system_time -> SetString (INT (system_current_month) + " / " + INT (system_current_year));
+            t_system_time -> SetString (ToStr (system_current_month) + " / " + ToStr (system_current_year));
         }
 
       // label turn off code moved from Travail ()
@@ -907,9 +907,9 @@ class Earthquakes  :  public DataSet
       //  Update the Text label based on the closest point
       Text *t_update = labels . ValFromKey (e -> Provenance ());
       t_update -> SetString ("M" + Compose ("%.1f", magnitude . Nth (closest)) + ", " +
-                              // INT (depth . Nth (closest)) + "km, " +
-                              INT (time_month . Nth (closest)) + "/" + INT (time_day . Nth (closest)) +
-                              "/" + INT (time_year . Nth (closest)));
+                              // ToStr (depth . Nth (closest)) + "km, " +
+                              ToStr (time_month . Nth (closest)) + "/" + ToStr (time_day . Nth (closest)) +
+                              "/" + ToStr (time_year . Nth (closest)));
       t_update -> SetAlignmentLeft ();
       t_update -> Tag ("pointer_moving");
       t_update -> ColorAnimateQuadratic (0);
@@ -933,7 +933,7 @@ class Earthquakes  :  public DataSet
 
     }
 
-  //  GESTURE INTERACTIVITY WITH THE EARTHQUAKE DATA
+  //  GESTURE ToStrERACTIVITY WITH THE EARTHQUAKE DATA
   //  Finger interactions to get individual quake data
   void FingerMove (PointingEvent *e)
     { if(!viewDataAsGlobe) //  Only in the equirectangular mode
@@ -981,7 +981,7 @@ class Earthquakes  :  public DataSet
         { }
       else //  only if a displacement of over 40mm is detected (a quick push)
         { system_depth += .4 * displacement . Dot (- Feld () -> Norm ());
-          INFORM ("Victory displacement . Mag () is " + FLOAT (displacement . Mag ()));
+          INFORM ("Victory displacement . Mag () is " + ToStr (displacement . Mag ()));
         }
 
       //  Reset system_depth to 0 if < 0
@@ -1002,15 +1002,15 @@ class Earthquakes  :  public DataSet
       //  Only update the VBO + Text when there has been a change in the displacement
       if (victory_displacement_previous != displacement)
         { UpdatePointColors ();
-          t_system_depth -> SetString ("system_depth = " + INT (system_depth) + "km");
+          t_system_depth -> SetString ("system_depth = " + ToStr (system_depth) + "km");
           t_quakes_within_range -> SetString ("quakes_within_range (+/- 10km) = "
-                                              + INT (quakes_within_range));
+                                              + ToStr (quakes_within_range));
         }
 
       victory_displacement_previous = displacement;
     }
 
-  // KEYBOARD + MOUSE INTERACTIONS WITH THE EARTHQUAKE DATA
+  // KEYBOARD + MOUSE ToStrERACTIONS WITH THE EARTHQUAKE DATA
   //  Pointer interactions (i.e. the mouse)
   void PointingMove (PointingEvent *e)
     { IndividualQuakeInteract (e); }
@@ -1029,9 +1029,9 @@ class Earthquakes  :  public DataSet
             if (Abs (depth . Nth (i) - system_depth) < 10)
               quakes_within_range++;
           UpdatePointColors ();
-          t_system_depth -> SetString ("system_depth = " + INT (system_depth) + "km");
+          t_system_depth -> SetString ("system_depth = " + ToStr (system_depth) + "km");
           t_quakes_within_range -> SetString ("quakes_within_range (+/- 10km) = "
-                                              + INT (quakes_within_range));
+                                              + ToStr (quakes_within_range));
         }
 
       //  Mimics pulling the depth plane with the Victory gesture
@@ -1045,9 +1045,9 @@ class Earthquakes  :  public DataSet
             if ( Abs (depth . Nth (i) - system_depth) < 10)
               quakes_within_range++;
           UpdatePointColors ();
-          t_system_depth -> SetString ("system_depth = " + INT (system_depth) + "km");
+          t_system_depth -> SetString ("system_depth = " + ToStr (system_depth) + "km");
           t_quakes_within_range -> SetString ("quakes_within_range (+/- 10km) = "
-                                              + INT (quakes_within_range));
+                                              + ToStr (quakes_within_range));
         }
 
       //  Toggle on and off explosion of data by depth
@@ -1109,7 +1109,7 @@ class Earthquakes  :  public DataSet
           system_magnitude = 0;
           UpdatePointColors ();
           t_system_magnitude -> SetString ("system_magnitude (+/- 0.5) = " +
-                                            FLOAT (system_magnitude));
+                                            ToStr (system_magnitude));
         }
 
       //  Stops automatic playthrough
@@ -1122,13 +1122,13 @@ class Earthquakes  :  public DataSet
       else if (Utters (e, "z"))
         { if (all_z_visible)
             { all_z_visible = false;
-              t_system_time -> SetString (INT (system_current_month) +
-                                          " / " + INT (system_current_year));
+              t_system_time -> SetString (ToStr (system_current_month) +
+                                          " / " + ToStr (system_current_year));
               system_magnitude = 0;
             }
           else
             { all_z_visible = true;
-              t_system_time -> SetString (INT (system_start_year) + " - 2012");
+              t_system_time -> SetString (ToStr (system_start_year) + " - 2012");
               system_magnitude = 1;
             }
             UpdatePointColors ();
@@ -1224,7 +1224,7 @@ class DataSystem  :  public Thing
           eq -> system_current_day = 01;
           eq -> auto_play = false;
           eq -> all_z_visible = true;
-          eq -> t_system_time -> SetString (INT (eq -> system_start_year) + " - 2012");
+          eq -> t_system_time -> SetString (ToStr (eq -> system_start_year) + " - 2012");
         }
       eq -> SetSystemMagnitude (1);
       eq -> UpdatePointColors ();
@@ -1259,7 +1259,7 @@ class DataSystem  :  public Thing
         }
     }
 
-  // GESTURE INTERACTIONS WITH THE DATASET CLASS
+  // GESTURE ToStrERACTIONS WITH THE DATASET CLASS
   // Translation
   void FistAppear (PointingEvent *e)
     { //  INFORM ("seismo FistAppear " + e -> Provenance ());
@@ -1303,7 +1303,7 @@ class DataSystem  :  public Thing
           }
     }
 
-  // iOS INTERACTIONS WITH THE DATASET CLASS
+  // iOS ToStrERACTIONS WITH THE DATASET CLASS
   void SwipeUp (BlurtEvent *e)
     { IncRotation (WrangleRay (Feld () -> Over ()), -PI / 2); }
   void SwipeDown (BlurtEvent *e)
@@ -1313,7 +1313,7 @@ class DataSystem  :  public Thing
   void SwipeLeft (BlurtEvent *e)
     { IncRotation (WrangleRay (Feld () -> Up ()), -PI / 2); }
 
-  // KEYBOARD + MOUSE INTERACTIONS WITH THE DATASET CLASS
+  // KEYBOARD + MOUSE ToStrERACTIONS WITH THE DATASET CLASS
   // Mouse
   void PointingHarden (PointingEvent *e)
     { //  Set ownership (heeding) of the system so that not more than one

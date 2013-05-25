@@ -76,7 +76,7 @@ class Skelly : public Thing
     DIR *in_dir;
     struct dirent *entry;
     INFORM ("opening directory: " + full_path);
-    in_dir = opendir (CHAR (full_path));
+    in_dir = opendir (ToStr (full_path));
     if (in_dir)
       { entry = readdir (in_dir);
         while(entry)
@@ -388,10 +388,10 @@ public:
 
     std::list <Magick::Image> images;
     Str src = skelly1 -> current_layer -> Data () -> SourceName ();
-    Magick::Image left (CHAR (src));
+    Magick::Image left (src . utf8 ());
     images . push_back (left);
     src = skelly2 -> current_layer -> Data () -> SourceName ();
-    Magick::Image right (CHAR (src));
+    Magick::Image right (src . utf8 ());
     images . push_back (right);
 
     std::list <Magick::Image> montage;

@@ -79,7 +79,7 @@ class PointerDetector : public Thing
       // If we detected a new pointer source,
       // create a new Text instance and put it in the list
       if (! t)
-        { t = new Text ("pointer " + INT (labels . Count () + 1)
+        { t = new Text ("pointer " + ToStr (labels . Count () + 1)
                               + " = " + e -> Provenance ());
           t -> SetObliviousness (true);
           t -> Heed (e);
@@ -94,7 +94,7 @@ class PointerDetector : public Thing
   void Fired () 
     { for (int64 i = 0  ;  i < labels . Count ()  ;  i++)
         { Text *t = labels . NthVal (i);
-          t -> SetString ("pointer " + INT (i + 1) + " = "
+          t -> SetString ("pointer " + ToStr (i + 1) + " = "
                           + labels . NthKey (i));
         }
     }
