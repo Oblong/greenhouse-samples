@@ -388,10 +388,10 @@ public:
 
     std::list <Magick::Image> images;
     Str src = skelly1 -> current_layer -> Data () -> SourceName ();
-    Magick::Image left (src . utf8 ());
+    Magick::Image left (ToChar (src));
     images . push_back (left);
     src = skelly2 -> current_layer -> Data () -> SourceName ();
-    Magick::Image right (src . utf8 ());
+    Magick::Image right (ToChar (src));
     images . push_back (right);
 
     std::list <Magick::Image> montage;
