@@ -8,19 +8,19 @@
 
   To interact with this application, first download the 'g-speak mobile' app
   from the iTunes App Store.  (It's free.)
- 
+
   https://itunes.apple.com/us/app/g-speak-mobile/id460504931?mt=8
 
   1.  Build and run the iO application
 
   2.  Run the g-speak mobile app on your iOS device
 
-  3.  The Greenhouse package-installer has already installed and started 
-      two background services, pool_tcp_server & pool-server-zeroconf-adapter, 
+  3.  The Greenhouse package-installer has already installed and started
+      two background services, pool_tcp_server & pool-server-zeroconf-adapter,
       which allow your application to be discoverable.  So hopefully your
       machine name will automagically appear in the list of available systems.
 
-      If it doesn't, try the "Connect manually..." option.  For a machine 
+      If it doesn't, try the "Connect manually..." option.  For a machine
       named foo, try entering foo or foo.local
 
   4.  Once the app is connected:
@@ -43,7 +43,7 @@ class PointerDetector : public Thing
 
   // Maps pointer-event sources to text labels that belong to them
   Dictionary <Str, Text*> labels;
-  
+
   // Text at the center of the feld
   Text *center_text;
 
@@ -54,7 +54,7 @@ class PointerDetector : public Thing
     { // reset the pointer text to the pointer name
       // every 2 seconds (after an iOS swipe)
       SetFireTimer (2.0);
-      
+
       // set up the background image
       bg_img = new Image ();
       bg_img -> SlapOnFeld ();
@@ -75,7 +75,7 @@ class PointerDetector : public Thing
       Vect intersect = Intersection (e, Feld () -> Loc ());
 
       Text *t = labels . Get (e -> Provenance ());
-      
+
       // If we detected a new pointer source,
       // create a new Text instance and put it in the list
       if (! t)
@@ -91,7 +91,7 @@ class PointerDetector : public Thing
       t -> SetTranslation (intersect + Vect (10, 10, 0));
     }
 
-  void Fired () 
+  void Fired ()
     { for (int64 i = 0  ;  i < labels . Count ()  ;  i++)
         { Text *t = labels . NthVal (i);
           t -> SetString ("pointer " + ToStr (i + 1) + " = "
@@ -138,7 +138,7 @@ class PointerDetector : public Thing
 
       // Set the image and fit it to the feld
       bg_img -> SetImage (img_data);
-      if (ImageDataAspect (img_data)  >  Aspect (Feld ()))
+      if (ImageDataAspect (img_data)  >  FeldAspect (Feld ()))
         { bg_img -> SetWidth  (Feld () -> Width ());
           bg_img -> SetHeight (Feld () -> Width () * ImageDataAspect (img_data));
         }
