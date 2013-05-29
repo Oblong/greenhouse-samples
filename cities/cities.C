@@ -162,8 +162,8 @@ class Cities  :  public DataSet
                                globe_position.z);
 
           // INFORM ( city_name[i] + ", "
-          //        + FLOAT (longitude[i]) + ", "
-          //        + FLOAT (latitude[i]) );
+          //        + ToStr (longitude[i]) + ", "
+          //        + ToStr (latitude[i]) );
 
           SetPointColor (i, HSB (0.12, 0.2, 1.0, 1.0));
           SetPointSize (i, 2.0);

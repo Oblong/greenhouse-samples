@@ -467,7 +467,7 @@ class CountryBorders  :  public DataSet
       { if (viewDataAsGlobe)
           { SetShaderUniform ("fog_radius", GLOBE_RADIUS);
             SetShaderUniform ("system_distance", distFromCamera);
-            // INFORM ("system_distance / distFromCamera = " + FLOAT(distFromCamera));
+            // INFORM ("system_distance / distFromCamera = " + ToStr(distFromCamera));
             SetShaderUniform ("camera_position", Feld () -> Camera () -> ViewLoc ());
           }
         else
