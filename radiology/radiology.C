@@ -113,6 +113,7 @@ public:
     guy -> SetAdjColor (Color (1.0, 0.5));
 
     start_cent = cur_cent = 0.0;
+    max_over = 0;
 
     SetAdjColor (Color ("#ff9900"));
     SetOnWindshield (true);
