@@ -18,8 +18,9 @@
 		5649DC5E16F921E20048F7B1 /* libGreenhouse.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */; };
 		5649DC6016F921F60048F7B1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649DC5F16F921F60048F7B1 /* OpenGL.framework */; };
 		5649DC6216F9234D0048F7B1 /* point-cloud.C in Sources */ = {isa = PBXBuildFile; fileRef = 5649DC6116F9234D0048F7B1 /* point-cloud.C */; };
-		E3CB6926175916DB00C89F02 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CB6925175916DB00C89F02 /* libboost_thread-mt.dylib */; };
-		E3CB6928175916E300C89F02 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CB6927175916E300C89F02 /* libboost_system-mt.dylib */; };
+		E33ED38717592D4B007D1219 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E33ED38417592D4B007D1219 /* libboost_filesystem.dylib */; };
+		E33ED38817592D4B007D1219 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E33ED38517592D4B007D1219 /* libboost_system.dylib */; };
+		E33ED38917592D4B007D1219 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E33ED38617592D4B007D1219 /* libboost_thread.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,9 @@
 		5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGreenhouse.dylib; path = /opt/oblong/greenhouse/lib/libGreenhouse.dylib; sourceTree = "<absolute>"; };
 		5649DC5F16F921F60048F7B1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = ../../../../../System/Library/Frameworks/OpenGL.framework; sourceTree = "<group>"; };
 		5649DC6116F9234D0048F7B1 /* point-cloud.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "point-cloud.C"; sourceTree = "<group>"; };
+		E33ED38417592D4B007D1219 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = "../../../../../../opt/oblong/deps-mac-106-64-8.5/deps-64-8/lib/libboost_filesystem.dylib"; sourceTree = "<group>"; };
+		E33ED38517592D4B007D1219 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = "../../../../../../opt/oblong/deps-mac-106-64-8.5/deps-64-8/lib/libboost_system.dylib"; sourceTree = "<group>"; };
+		E33ED38617592D4B007D1219 /* libboost_thread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_thread.dylib; path = "../../../../../../opt/oblong/deps-mac-106-64-8.5/deps-64-8/lib/libboost_thread.dylib"; sourceTree = "<group>"; };
 		E3CB6925175916DB00C89F02 /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "../../../../../../usr/local/lib/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
 		E3CB6927175916E300C89F02 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "../../../../../../usr/local/lib/libboost_system-mt.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,8 +60,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3CB6928175916E300C89F02 /* libboost_system-mt.dylib in Frameworks */,
-				E3CB6926175916DB00C89F02 /* libboost_thread-mt.dylib in Frameworks */,
+				E33ED38717592D4B007D1219 /* libboost_filesystem.dylib in Frameworks */,
+				E33ED38817592D4B007D1219 /* libboost_system.dylib in Frameworks */,
+				E33ED38917592D4B007D1219 /* libboost_thread.dylib in Frameworks */,
 				5649DC6016F921F60048F7B1 /* OpenGL.framework in Frameworks */,
 				5649DC5E16F921E20048F7B1 /* libGreenhouse.dylib in Frameworks */,
 				5649DC5516F921CF0048F7B1 /* libBasement.2.dylib in Frameworks */,
@@ -77,6 +82,9 @@
 		5649DC3516F921580048F7B1 = {
 			isa = PBXGroup;
 			children = (
+				E33ED38417592D4B007D1219 /* libboost_filesystem.dylib */,
+				E33ED38517592D4B007D1219 /* libboost_system.dylib */,
+				E33ED38617592D4B007D1219 /* libboost_thread.dylib */,
 				E3CB6927175916E300C89F02 /* libboost_system-mt.dylib */,
 				E3CB6925175916DB00C89F02 /* libboost_thread-mt.dylib */,
 				5649DC5F16F921F60048F7B1 /* OpenGL.framework */,
@@ -219,6 +227,7 @@
 					"/opt/oblong/deps-64-8/.bon-jovi/lib",
 					"/opt/oblong/deps-64-8/lib",
 					/opt/oblong/greenhouse/lib,
+					"\"/opt/oblong/deps-mac-106-64-8.5/deps-64-8/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -240,6 +249,7 @@
 					"/opt/oblong/deps-64-8/.bon-jovi/lib",
 					"/opt/oblong/deps-64-8/lib",
 					/opt/oblong/greenhouse/lib,
+					"\"/opt/oblong/deps-mac-106-64-8.5/deps-64-8/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
