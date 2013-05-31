@@ -18,6 +18,7 @@ CXXFLAGS = -Wempty-body \
   -Wno-overloaded-virtual \
   -Wno-strict-overflow \
   -Wno-error=unused-variable \
+  -Wno-shadow \
   -Werror \
   `PKG_CONFIG_PATH=$(GH_PKG_CONFIG) --cflags --static libGreenhouse` \
   -g -O3 -std=gnu++0x
@@ -45,5 +46,5 @@ clean:
 	-rm point-cloud
 
 point-cloud: point-cloud.C
-	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@
+	${CXX} $^ -lGreenhouse -lboost_thread -lboost_system ${LDFLAGS} ${CXXFLAGS} -o $@
 	@echo	"$(OK_COLOR)$$EXP_STR$(NO_COLOR)"
