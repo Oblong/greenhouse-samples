@@ -1283,7 +1283,7 @@ class DataSystem  :  public Thing
         { ZeroTime ();   //  Zero out CurTime ()
 
           //  Translate the DataSystem
-          IncTranslation (6.0 * FistMotion (e, PhysLoc ()));
+          IncTranslation (2.0 * FistMotion (e, PhysLoc ()));
         }
     }
 
@@ -1342,7 +1342,7 @@ class DataSystem  :  public Thing
                            - IntersectionDiff (e, PhysLoc ()) . y / 100);
             }
           else //  if !viewDataAsGlobe, translate the DataSystem
-            { IncTranslation (5 * IntersectionDiff (e, PhysLoc ())); }
+            { IncTranslation (IntersectionDiff (e, PhysLoc ())); }
         }
     }
 
