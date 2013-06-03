@@ -2,6 +2,25 @@
 
 #include "Greenhouse.h"
 
+/**
+  To ensure the image resources are found when running this sample, you will
+  need to do the following:
+
+    If runnin in xcode:
+      - set your working directory to this sample's share directory:
+        
+        - Go to Product -> Scheme -> Edit Scheme
+        - Under “Options”, select “Use custom working directory” and point it
+          to the share folder located in the same location as this .C file
+
+    If running via terminal:
+      - add the local share folder to your OB_SHARE_PATH by running the
+        following command in your terminal:
+        
+        $ export OB_SHARE_PATH=/path/to/radiology/share:$OB_SHARE_PATH
+*/
+
+
 //  For working with directories in the file system
 #include <dirent.h>
 #include <ImageMagick/Magick++.h>
