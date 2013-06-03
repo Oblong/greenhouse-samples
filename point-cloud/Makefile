@@ -46,5 +46,5 @@ clean:
 	-rm point-cloud
 
 point-cloud: point-cloud.C
-	${CXX} $^ -lGreenhouse -lboost_thread -lboost_system ${LDFLAGS} ${CXXFLAGS} -o $@
+	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@
 	@echo	"$(OK_COLOR)$$EXP_STR$(NO_COLOR)"
