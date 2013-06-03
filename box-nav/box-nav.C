@@ -32,7 +32,7 @@ class SystemNode  :  public Box
 
       ColorAnimateQuadratic (0.5); // When the color changes, it will animate
       RotationAnimateChase (0.75); // When the rotation changes, it will animate
-      TranslationAnimateAsymp (.5); // When the translation changes, animate it
+      TranslationAnimateChase (.5); // When the translation changes, animate it
       SetScale (.2);
       SetAlpha (.375);
 
