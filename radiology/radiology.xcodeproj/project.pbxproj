@@ -45,6 +45,7 @@
 		5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGreenhouse.dylib; path = /opt/oblong/greenhouse/lib/libGreenhouse.dylib; sourceTree = "<absolute>"; };
 		5649DC5F16F921F60048F7B1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = ../../../../../System/Library/Frameworks/OpenGL.framework; sourceTree = "<group>"; };
 		5649DC6116F9234D0048F7B1 /* radiology.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = radiology.C; sourceTree = "<group>"; };
+		E46EA3A7175D1257007ECBDA /* ImageMagick */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ImageMagick; path = "../../../../../../opt/oblong/deps-64-8/include/ImageMagick"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 		5649DC3516F921580048F7B1 = {
 			isa = PBXGroup;
 			children = (
+				E46EA3A7175D1257007ECBDA /* ImageMagick */,
 				5649DC5F16F921F60048F7B1 /* OpenGL.framework */,
 				5649DC5D16F921E20048F7B1 /* libGreenhouse.dylib */,
 				5649DC4D16F921CF0048F7B1 /* libBasement.2.dylib */,
@@ -171,8 +173,18 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/opt/oblong/deps-64-8/include/ImageMagick/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DMAGICKCORE_HDRI_ENABLE=0",
+					"-DMAGICKCORE_QUANTUM_DEPTH=16",
+				);
+				OTHER_LDFLAGS = (
+					"-lMagick++6-Q16",
+					"-lMagickCore6-Q16",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -191,7 +203,17 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/opt/oblong/deps-64-8/include/ImageMagick/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DMAGICKCORE_HDRI_ENABLE=0",
+					"-DMAGICKCORE_QUANTUM_DEPTH=16",
+				);
+				OTHER_LDFLAGS = (
+					"-lMagick++6-Q16",
+					"-lMagickCore6-Q16",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -199,6 +221,7 @@
 		5649DC4B16F921580048F7B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -206,6 +229,7 @@
 					/opt/oblong/greenhouse/include,
 					"/opt/oblong/deps-64-8/.bon-jovi/include",
 					"/opt/oblong/deps-64-8/include",
+					"/opt/oblong/deps-64-8/include/ImageMagick/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/opt/oblong/deps-64-8/.bon-jovi/lib",
@@ -220,6 +244,7 @@
 		5649DC4C16F921580048F7B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -227,6 +252,7 @@
 					/opt/oblong/greenhouse/include,
 					"/opt/oblong/deps-64-8/.bon-jovi/include",
 					"/opt/oblong/deps-64-8/include",
+					"/opt/oblong/deps-64-8/include/ImageMagick/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/opt/oblong/deps-64-8/.bon-jovi/lib",
