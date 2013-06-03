@@ -29,10 +29,10 @@ class SystemNode  :  public Box
       should_rotate (false)
     { for (int64 j = 0; j < 6; j++)
         AppendTexture ("images/box_0" + ToStr (j + 1) + ".png");
-      
+
       ColorAnimateQuadratic (0.5); // When the color changes, it will animate
       RotationAnimateChase (0.75); // When the rotation changes, it will animate
-      TranslationAnimateChase (.5); // When the translation changes, animate it
+      TranslationAnimateAsymp (.5); // When the translation changes, animate it
       SetScale (.2);
       SetAlpha (.375);
 
