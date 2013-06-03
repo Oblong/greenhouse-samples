@@ -6,17 +6,17 @@
   To ensure the image resources are found when running this sample, you will
   need to do the following:
 
-    If runnin in xcode:
+    If running in Xcode:
       - set your working directory to this sample's share directory:
-        
+
         - Go to Product -> Scheme -> Edit Scheme
         - Under “Options”, select “Use custom working directory” and point it
           to the share folder located in the same location as this .C file
 
     If running via terminal:
-      - add the local share folder to your OB_SHARE_PATH by running the
-        following command in your terminal:
-        
+      - add the local share/ folder to your OB_SHARE_PATH by running the
+        following command in your terminal (with your correct path subbed in):
+
         $ export OB_SHARE_PATH=/path/to/radiology/share:$OB_SHARE_PATH
 */
 
