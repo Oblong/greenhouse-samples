@@ -40,11 +40,11 @@ export OB_SHARE_PATH=`pwd`/share:$$OB_SHARE_PATH
 endef
 export EXP_STR
 
-all: bob_ross
+all: bob-ross
 clean:
-	-rm bob_ross
+	-rm bob-ross
 
-bob_ross: echo.C
+bob-ross: echo.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@
 	@echo	"$(OK_COLOR)$$EXP_STR$(NO_COLOR)"
 
