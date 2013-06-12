@@ -7,16 +7,17 @@ public:
   DotsSquare (float64 w)
   { width = w;
     SetStroked (false);
-    SetStrokeColor (Color (0.12, 0.12, 0.91));
+    // SetStrokeColor (Color (0.12, 0.12, 0.91));
+    SetStrokeColor (Color (0.91, 0.91, 0.91, 0.6));
     SetFillColor (Color (0.8, 0.4, 0, 0.7));
     for (int i = 0  ;  i <= 10  ;  ++i)
       { for (int j = 0; j <= 10; ++j)
           { SetFilled (true);
             SetStroked (false);
             if (Random (0, 5) < 1)
-              SetFillColor (Color (0, 0, 0.91, 0.5));
-            else if (FillColor() != Color (0.8, 0.4, 0, 0.6))
               SetFillColor (Color (0.8, 0.4, 0, 0.6));
+            else if (FillColor() != Color (0.61, 0.78, 0.75, 0.5))
+              SetFillColor (Color (0.61, 0.78, 0.75, 0.5));
             DrawEllipse (Vect (i*width/10, j*-width/10, 1), ((i+j+2)*width/500), ((i+j+2)*width/500));
             SetStroked (true);
             DrawPoint (Vect (i*width/10, j*-width/10, 2));
@@ -62,7 +63,8 @@ class CurveSquare  :  public Sketch
 public:
   CurveSquare (float64 w)
   { width = w;
-    SetFillColor (Color (0, 0, 1, 0.5));
+    SetFillColor (Color (0.61, 0.78, 0.75, 0.5));
+    SetFilled(true);
     DrawRect (Vect (0, 0, 0), width, width);
     SetStrokeColor (Color (0.8, 0.4, 0,0.7));
     DrawBezier (Vect (width/2, width/2, 0), Vect (-width/2, -width/2, 0), Vect (-width/2, width/2, 0), Vect (width/2, -width/2, 0));
