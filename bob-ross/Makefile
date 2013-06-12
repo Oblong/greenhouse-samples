@@ -44,7 +44,7 @@ all: bob-ross
 clean:
 	-rm bob-ross
 
-bob-ross: echo.C
+bob-ross: bob-ross.C
 	${CXX} $^ -lGreenhouse ${LDFLAGS} ${CXXFLAGS} -o $@
 	@echo	"$(OK_COLOR)$$EXP_STR$(NO_COLOR)"
 
