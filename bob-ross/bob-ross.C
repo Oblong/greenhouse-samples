@@ -6,8 +6,8 @@ class DotsSquare  :  public Sketch
 public:
   DotsSquare (float64 w)
   { width = w;
+      SetStrokeWidth(.5);
     SetStroked (false);
-    // SetStrokeColor (Color (0.12, 0.12, 0.91));
     SetStrokeColor (Color (0.91, 0.91, 0.91, 0.6));
     SetFillColor (Color (0.8, 0.4, 0, 0.7));
     for (int i = 0  ;  i <= 10  ;  ++i)
@@ -20,7 +20,7 @@ public:
               SetFillColor (Color (0.61, 0.78, 0.75, 0.5));
             DrawEllipse (Vect (i*width/10, j*-width/10, 1), ((i+j+2)*width/500), ((i+j+2)*width/500));
             SetStroked (true);
-            DrawPoint (Vect (i*width/10, j*-width/10, 2));
+            DrawPoint (Vect (i*width/10, j*-width/10, 0));
           }
       }
   }
@@ -37,17 +37,17 @@ public:
 
   LinesSquare (float64 w)
   { width = w;
-    num = 40;
+    num = 30;
     for (int i = 0  ;  i < num  ;  ++i)
-      { widths . Append (Random(5, 15));
+      { widths . Append (Random(1, 4));
         positions . Append (Random(0, width));
-        speeds . Append (Random(1, 2));
+        speeds . Append (Random(0, .25));
       }
   }
 
   void Travail()
   { Clear();
-    SetStrokeColor (Color (0.91, 0.91, 0.91, 0.75));
+    SetStrokeColor (Color (0.91, 0.91, 0.91, 0.6));
     for(int i = 0  ;  i < num  ;  i++)
       { positions . Nth(i) += speeds . Nth(i);
         if(positions . Nth(i) > width)
