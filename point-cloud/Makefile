@@ -25,8 +25,9 @@ CXXFLAGS = -Wempty-body \
 
 LDFLAGS=`PKG_CONFIG_PATH=$(GH_PKG_CONFIG) --libs --static libGreenhouse`
 
-NO_COLOR=\x1b[0m
-OK_COLOR=\x1b[36;21m
+esc=`echo "\033"`
+NO_COLOR=${esc}[0m
+OK_COLOR=${esc}[36;21m
 
 define EXP_STR
 
