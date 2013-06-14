@@ -1,4 +1,6 @@
 
+/* (c)  oblong industries */
+
 #include "Greenhouse.h"
 
 class DotsSquare  :  public Sketch
@@ -6,10 +8,9 @@ class DotsSquare  :  public Sketch
 public:
   DotsSquare (float64 w)
   { width = w;
-      SetStrokeWidth(.5);
+    SetStrokeWidth(.5);
     SetStroked (false);
     SetStrokeColor (Color (0.91, 0.91, 0.91, 0.6));
-    SetFillColor (Color (0.8, 0.4, 0, 0.7));
     for (int i = 0  ;  i <= 10  ;  ++i)
       { for (int j = 0; j <= 10; ++j)
           { SetFilled (true);
@@ -47,7 +48,7 @@ public:
 
   void Travail()
   { Clear();
-    SetStrokeColor (Color (0.91, 0.91, 0.91, 0.6));
+    SetStrokeColor (Color (0.61, 0.78, 0.75, 0.7));
     for(int i = 0  ;  i < num  ;  i++)
       { positions . Nth(i) += speeds . Nth(i);
         if(positions . Nth(i) > width)
