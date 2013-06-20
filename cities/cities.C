@@ -22,9 +22,12 @@ inline Vect LatLongToSphereSurface (float64 radius, float64 lat, float64 lng)
 }
 
 
-//  Stores and displays global country border data, as a line strip
+///  Stores and displays global country border data, as a line strip
+///  Inherits from both Table and LineStrip.
+///  Another way to do this is to have the Table object live inside
+///  this class; see seismo.C for an example of that usage.
 class CountryBorders  :  public Table,
-                         public VBOThing
+                         public LineStrip
 {
 public:
 
@@ -37,8 +40,7 @@ public:
   Trove <int64> drawitude;
 
   CountryBorders ()  :
-      Table ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt", true),
-      VBOThing (GL_LINE_STRIP)
+      Table ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt", true)
     { //  Interpret the 0th and 1th column in the data as floats,
       //  and the 2th column as ints
       longitude = FloatColumn (0);
@@ -52,23 +54,19 @@ public:
         { float64 mapped_longitude
             = Range (longitude[i], 0.0, 360.0, -180.0, 180.0) - 0.2;
 
-          //  todo: - .2 because the borders data is a tad off
+          //  .2 because the borders data is a tad off
           float64 mapped_latitude
             = Range (latitude[i], 0.0, 180.0, 90.0, -90.0) + 0.25;
 
-          //  todo: + .25 because the borders data is a tad off
-          Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS - 0.5,
-                                                        mapped_latitude,
-                                                        mapped_longitude);
-
-          SetLocation (i, Vect (globe_position.x,
-                                globe_position.y,
-                                globe_position.z));
+          //  .25 because the borders data is a tad off
+          SetVertexLoc (i, LatLongToSphereSurface (GLOBE_RADIUS - 0.5,
+                                                  mapped_latitude,
+                                                  mapped_longitude));
 
           // INFORM (ToStr (longitude[i]) + " " + ToStr (latitude[i]) + " " + ToStr (drawitude[i]));
-          SetColor (i, HSB (0.5, 0, 0.2, drawitude[i]));
+          SetVertexColor (i, HSB (0.5, 0, 0.2, drawitude[i]));
         }
-      SetReady (true);
+      SetVerticesReady ();
 
       RotationAnimateChase (0.75);
       TranslationAnimateChase (0.25);
@@ -147,7 +145,7 @@ public:
 
 //  Stores and displays city data, as points
 class Cities  :  public Table,
-                 public PointCloud
+                 public Points
 {
 public:
 
@@ -170,24 +168,16 @@ public:
       longitude = FloatColumn (2);
       SetVertexCount (RowCount());
 
-      LoadShaders ("shaders/foggy.vert", "shaders/null.frag");
+      LoadShaders ("shaders/cities-foggy.vert", "shaders/null.frag");
 
-      for (int64 i = 0  ;  i < Count ()  ;  i++)
-        { Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS,
-                                                        latitude[i],
-                                                        longitude[i]);
-          SetLocation (i, Vect (globe_position.x,
-                                globe_position.y,
-                                globe_position.z));
-
-          // INFORM (city_name[i] + ", "
-          //        + ToStr (longitude[i]) + ", "
-          //        + ToStr (latitude[i]) );
-
-          SetColor (i, HSB (0.12, 0.2, 1.0, 1.0));
+      for (int64 i = 0  ;  i < VertexCount ()  ;  i++)
+        { SetVertexLoc (i, LatLongToSphereSurface (GLOBE_RADIUS,
+                                                   latitude[i],
+                                                   longitude[i]));
+          SetVertexColor (i, HSB (0.12, 0.2, 1.0, 1.0));
           SetPointSize (i, 2.0);
         }
-      SetReady (true);
+      SetVerticesReady ();
     }
 
   //  Runs once per render loop; where we provide input to shaders
@@ -221,12 +211,11 @@ public:
     { if (last_closest_point > -1)
         SetPointSize (last_closest_point, 2);
 
-      last_closest_point = ClosestLoc (e);
+      last_closest_point = ClosestVertex (e);
       if (last_closest_point > -1)
         SetPointSize (last_closest_point, 20);
 
-      //  todo: document this
-      Vect abs_loc = UnWrangleLoc (locs[last_closest_point]);
+      Vect abs_loc = UnWrangleLoc (NthVertexLoc (last_closest_point));
 
       UpdateLabel (e, city_name[last_closest_point], abs_loc);
     }

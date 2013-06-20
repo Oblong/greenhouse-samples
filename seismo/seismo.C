@@ -1,10 +1,11 @@
-/* (c)  Oblong Industries */
+
+/* (c)  oblong industries */
 
 //  Earthquake data originally from the USGS
 //  < http://earthquake.usgs.gov/earthquakes/eqarchives/epic/epic_global.php >
 
 #include "Greenhouse.h"
-#include "DataSet.h"
+#include "Table.h"
 
 //  GLOBAL VARIABLES
 #define GLOBE_RADIUS 100.0
@@ -13,7 +14,6 @@ bool viewDataAsGlobe;
 bool stratifiedByMagnitude;
 bool explodedByDepth;
 
-//  COMMON CALCULATION METHODS
 //  Function to calculate the earthquake data GL point size
 float ComputePointSize (float m)
   { float output = m * m * m * m;
@@ -28,17 +28,15 @@ float ComputePointSize (float m)
 Vect LatLongToSphereSurface (float64 radius, float64 lat, float64 lng)
 { lat *= (M_PI / 180.0);
   lng *= (M_PI / 180.0);
-  Vect v = Vect (cos (lat) * sin (lng) * radius,
-                 sin (lat) * radius,
-                 cos (lat) * cos (lng) * radius);
-  return v;
+  return Vect (cos (lat) * sin (lng) * radius,
+               sin (lat) * radius,
+               cos (lat) * cos (lng) * radius);
 }
 
 
-//  CLASSES
 //  The Selector object stores and displays the cube graphics that
 //  are displayed arounf individual quake data points
-class Selector  :  public Thing //  subclassed from Thing
+class Selector  :  public Thing
 {
   public:
 
@@ -384,105 +382,128 @@ class Selector  :  public Thing //  subclassed from Thing
 };
 
 
-// Object that stores and displays global country border data
-class CountryBorders  :  public DataSet
+/// Stores and displays global country border data
+class CountryBorders  :  public LineStrip
 {
  public:
 
-  //  We store the dataset's latitudes/longitudes as floats
+  Table table;
   Trove <float64> latitude;
   Trove <float64> longitude;
 
-  //  Borders are stored as a continuous line VBO,
+  //  Borders are stored as a continuous line strip;
+  //  third column in the data set tells whether the point
+  //  should be drawn or not
   //  0 = invisible, 1 = visible
   Trove <int64> drawitude;
 
-  CountryBorders ()  :  DataSet ()
+  CountryBorders ()
     { SetName ("country_borders_dataset");
-      Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_"
-            "360x180_coords_cleaner2.txt");
+
+      table . Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_"
+                    "360x180_coords_cleaner2.txt", true);
 
       //  Interpret the 0th and 1th column in the data as floats,
       //  and the 2th column as ints
-      longitude = FloatColumn (0);
-      latitude = FloatColumn (1);
-      drawitude = IntColumn (2);
+      longitude = table . FloatColumn (0);
+      latitude  = table . FloatColumn (1);
+      drawitude = table . IntColumn (2);
+      SetVertexCount (table . RowCount ());
 
-      LoadShaders ("shaders/foggy.vert", "shaders/null.frag");
+      LoadShaders ("shaders/seismo-foggy.vert", "shaders/null.frag");
       UpdatePointLocations();
       UpdatePointColors ();
 
-      DataReady ();
-      SetDrawMode (GL_LINE_STRIP);
+      SetVerticesReady ();
     }
 
-    //  Function to the VBO's vertex positions
-    void UpdatePointLocations ()
-      { for (int64 i = 4; i < Count (); i++)
-          { float64 mapped_longitude
-              = Range (longitude . Nth (i), 0, 360, -180, 180) - 0.2;
-              //  todo: - .2 because the borders data is a tad off
+  void UpdatePointLocations ()
+    { for (int64 i = 0; i < table . RowCount (); i++)
+        { float64 mapped_longitude
+            = Range (longitude . Nth (i), 0, 360, -180, 180) - 0.2;
 
-            float64 mapped_latitude
-              = Range (latitude . Nth (i), 0, 180, 90, -90) + 0.25;
-              //  todo: + .25 because the borders data is a tad off
+          float64 mapped_latitude
+            = Range (latitude . Nth (i), 0, 180, 90, -90) + 0.25;
 
-            if(viewDataAsGlobe)
-              { Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS,
-                                                              mapped_latitude,
-                                                              mapped_longitude);
+          if (viewDataAsGlobe)
+            SetVertexLoc (i, LatLongToSphereSurface (GLOBE_RADIUS,
+                                                     mapped_latitude,
+                                                     mapped_longitude));
 
-                SetPointLocation (i, globe_position . x,
-                                     globe_position . y,
-                                     globe_position . z);
-              }
-            else
-              { SetPointLocation (i, mapped_longitude,
-                                  mapped_latitude,
-                                  0 );
-              }
-          }
-      }
+          else
+            SetVertexLoc (i, Vect (mapped_longitude, mapped_latitude, 0));
+        }
+    }
 
-    //  Function to the VBO's point colors
-    void UpdatePointColors ()
-      { for (int64 i = 4; i < Count (); i++)
-          { if (viewDataAsGlobe)
-              { if (drawitude . Nth (i) == 2)
-                  { SetPointColor (i, HSB (.5, 0, 1, 0)); }
-                else
-                  { SetPointColor (i, HSB (.5, 0, 1, 1.0 * drawitude . Nth (i))); }
-              }
-            else // if !viewDataAsGlobe
-              { if(drawitude . Nth (i) == 2)
-                  { SetPointColor (i, HSB (.5, 0, 1, 1)); }
-                else
-                  { SetPointColor (i, HSB (.5, 0, 1, 1.0 * drawitude . Nth (i))); }
-              }
-          }
-      }
+  void UpdatePointColors ()
+    { for (int64 i = 0; i < table . RowCount (); i++)
+        { if (drawitude . Nth (i) == 2)
+            SetVertexColor (i, HSB (.5, 0, 1, 0));
+          else
+            SetVertexColor (i, HSB (.5, 0, 1, drawitude . Nth (i)));
+        }
+    }
 
-    //  Runs once per render loop; where we provide input to shaders
-    void AssignShaderInputs ()
-      { if (viewDataAsGlobe)
-          { SetShaderUniform ("fog_radius", GLOBE_RADIUS);
-            SetShaderUniform ("system_distance", distFromCamera);
-            // INFORM ("system_distance / distFromCamera = " + ToStr(distFromCamera));
-            SetShaderUniform ("camera_position", Feld () -> Camera () -> ViewLoc ());
-          }
-        else
-          { SetShaderUniform ("fog_radius", GLOBE_RADIUS * 4);
-            SetShaderUniform ("system_distance", distFromCamera);
-            SetShaderUniform ("camera_position", Feld () -> Camera () -> ViewLoc ());
-          }
-      }
+  //  Called once per render loop; where we provide input to shaders
+  void AssignShaderInputs ()
+    { if (viewDataAsGlobe)
+        { SetShaderUniform ("fog_radius", GLOBE_RADIUS);
+          SetShaderUniform ("system_distance", distFromCamera);
+          SetShaderUniform ("camera_position", Feld () -> Camera () -> ViewLoc ());
+        }
+      else
+        { SetShaderUniform ("fog_radius", GLOBE_RADIUS * 4);
+          SetShaderUniform ("system_distance", distFromCamera);
+          SetShaderUniform ("camera_position", Feld () -> Camera () -> ViewLoc ());
+        }
+    }
+
+  void PreDraw ()
+    { //  This keeps GL from interpolating color between endpoints of the line strip.
+      //  So if one end of the line has alpha==0, the whole line doesn't draw.
+      //  That's what we want; the data has single rows of "0" alpha points.
+      glShadeModel (GL_FLAT);
+    }
+
+  void PostDraw ()
+    { //  Set back to default
+      glShadeModel (GL_SMOOTH);
+    }
 };
 
 
+float MinValue (const Trove <float64> &t)
+{ float min = FLOAT_MAX;
+  for (int i = 0; i < t . Count (); i++)
+    if (t . Nth (i) < min)
+      min = t . Nth (i);
+  return min;
+}
+
+float MaxValue (const Trove <float64> &t)
+{ float max = FLOAT_MIN;
+  for (int i = 0; i < t . Count (); i++)
+    if (t . Nth (i) > max)
+      max = t . Nth (i);
+  return max;
+}
+
+float AvgValue (const Trove <float64> &t)
+{ float avg = 0;
+  if (t . Count () == 0)
+    return 0;
+  for (int i = 0; i < t . Count (); i++)
+    avg = avg + t . Nth (i);
+  return avg / (float)t . Count ();
+}
+
+
 //  Earthquakes class stores and displays the earthquake data
-class Earthquakes  :  public DataSet
+class Earthquakes  :  public Points
 {
  public:
+
+  Table table;
 
   //  Troves to store the data from the text file
   Trove <float64> time_year;
@@ -528,12 +549,12 @@ class Earthquakes  :  public DataSet
   Dictionary <Str, Text*> labels;
   Dictionary <Str, Selector*> labels_graphics;
 
-  Earthquakes ()  :  DataSet ()
+  Earthquakes ()
     { SetName ("earthquake_dataset");
 
       // LOAD DATASET AND SET SYSTEM TIME VARIABLES
       system_start_year = 2007;
-      Load ("data/seismo/USGS_NEIC_" + ToStr (system_start_year) + "0101_20120906.txt");
+      table . Load ("data/seismo/USGS_NEIC_" + ToStr (system_start_year) + "0101_20120906.txt");
 
       system_current_year = system_start_year;
       system_current_month = 01;
@@ -543,30 +564,31 @@ class Earthquakes  :  public DataSet
       all_z_visible = true;
 
       // ASSIGN TROVE VALUES
-      time_year = FloatColumn (0);
-      time_month = FloatColumn (1);
-      time_day = FloatColumn (2);
-      magnitude = FloatColumn (6);
-      latitude = FloatColumn (4);
-      longitude = FloatColumn (5);
-      depth = FloatColumn (7);
+      time_year  = table . FloatColumn (0);
+      time_month = table . FloatColumn (1);
+      time_day   = table . FloatColumn (2);
+      magnitude  = table . FloatColumn (6);
+      latitude   = table . FloatColumn (4);
+      longitude  = table . FloatColumn (5);
+      depth      = table . FloatColumn (7);
+      SetVertexCount (table . RowCount ());
 
       quake_depth_factor = 0.0; // 0.36;
       draw_mode = "depth";
 
-      quake_depth_max = Max (depth);
-      quake_depth_min = Min (depth);
+      quake_depth_max = MaxValue (depth);
+      quake_depth_min = MinValue (depth);
 
-      quake_magnitude_max = Max (magnitude);
-      quake_magnitude_min = Min (magnitude);
+      quake_magnitude_max = MaxValue (magnitude);
+      quake_magnitude_min = MinValue (magnitude);
 
-      quake_latitude_max = Max (latitude);
-      quake_latitude_min = Min (latitude);
+      quake_latitude_max = MaxValue (latitude);
+      quake_latitude_min = MinValue (latitude);
 
-      quake_longitude_max = Max (longitude);
-      quake_longitude_min = Min (longitude);
-      quake_depth_avg = Avg (depth);
-      quake_magnitude_avg = Avg (magnitude);
+      quake_longitude_max = MaxValue (longitude);
+      quake_longitude_min = MinValue (longitude);
+      quake_depth_avg = AvgValue (depth);
+      quake_magnitude_avg = AvgValue (magnitude);
 
       system_depth = 0;
       system_magnitude = 1; //  Sets all data to a transparent value
@@ -580,7 +602,7 @@ class Earthquakes  :  public DataSet
       stratifiedByMagnitudeOffset = 10; //  distance in mm
 
       //  Assign a stratification layer based on quake magnitude
-      for (int64 i = 0; i < Count (); i++)
+      for (int64 i = 0; i < table . RowCount (); i++)
         { if (magnitude . Nth (i) < 1.5)
             stratifiedByMagnitudeFactorTarget . Append (0);
           else if (magnitude . Nth (i) >= 1.5 && magnitude . Nth (i) < 2.5)
@@ -613,13 +635,13 @@ class Earthquakes  :  public DataSet
       victory_displacement_previous = Vect ();
 
       //  Set and update the VBO values
-      LoadShaders ("shaders/pointsizefog.vert", "shaders/null.frag");
+      LoadShaders ("shaders/seismo-pointsizefog.vert", "shaders/null.frag");
       UpdatePointLocations ();
       UpdatePointColors (true);
       updatePointSize ();
-      DataReady ();
+      SetVerticesReady ();
 
-      INFORM (ToStr (Count ()) + " EARTHQUAKES LOADED / quake_depth_max = " +
+      INFORM (ToStr (table . RowCount ()) + " EARTHQUAKES LOADED / quake_depth_max = " +
             ToStr (quake_depth_max) + ", quake_depth_min = " + ToStr (quake_depth_min) +
             ", quake_depth_avg = " + ToStr (quake_depth_avg) +
             " / quake_magnitude_max = " + ToStr (quake_magnitude_max) +
@@ -649,7 +671,7 @@ class Earthquakes  :  public DataSet
       t_quakes_within_range -> SetFontSize (Feld () -> Width () / 80);
       t_quakes_within_range -> SetAlignmentRight ();
       int64 quakes_within_range = 0;
-          for (int64 i = 0; i < Count (); i++)
+          for (int64 i = 0; i < table . RowCount (); i++)
             if ( Abs (depth . Nth (i) - system_depth) < 10)
               quakes_within_range++;
       t_quakes_within_range -> SetString ("quakes_within_range (+/- 10km) = " + ToStr (quakes_within_range));
@@ -672,29 +694,24 @@ class Earthquakes  :  public DataSet
 
 
   void UpdatePointLocations ()
-    { for (int64 i = 0; i < Count (); i++)
+    { for (int64 i = 0; i < table . RowCount (); i++)
         { if (viewDataAsGlobe)
-            { Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS  - depth . Nth (i) * quake_depth_factor / 6 +
-                                                        stratifiedByMagnitudeOffset * stratifiedByMagnitudeFactorTarget . Nth (i) * stratified_by_magnitude_factor,
-                                                        latitude . Nth (i), longitude . Nth (i));
-
-              SetPointLocation (i, globe_position . x,
-                                globe_position . y,
-                                globe_position . z);
-            }
+            SetVertexLoc (i, LatLongToSphereSurface (GLOBE_RADIUS  - depth . Nth (i) * quake_depth_factor / 6 +
+                                                    stratifiedByMagnitudeOffset * stratifiedByMagnitudeFactorTarget . Nth (i) * stratified_by_magnitude_factor,
+                                                    latitude . Nth (i), longitude . Nth (i)));
           else
-            { SetPointLocation (i, longitude . Nth (i),
-                                latitude . Nth (i),
-                                -depth . Nth (i) * quake_depth_factor / 4 +
-                                    stratifiedByMagnitudeOffset * stratifiedByMagnitudeFactorTarget . Nth (i) * stratified_by_magnitude_factor);
-            }
+            SetVertexLoc (i, Vect (longitude . Nth (i),
+                                  latitude . Nth (i),
+                                  -depth . Nth (i) * quake_depth_factor / 4 +
+                                  stratifiedByMagnitudeOffset * stratifiedByMagnitudeFactorTarget . Nth (i) *
+                                    stratified_by_magnitude_factor));
         }
     }
 
   //  Function to set the VBO's point colors
   void UpdatePointColors (bool updateHue = false)
     { Color c;
-      for (int64 i = 0; i < Count (); i++)
+      for (int64 i = 0; i < table . RowCount (); i++)
         { float64 a;
           float64 a_on = .75;
           float64 a_transparent = 0.25;
@@ -735,15 +752,15 @@ class Earthquakes  :  public DataSet
           else if (draw_mode == "magnitude")
             h = Range (magnitude . Nth (i), 3.0, 5.0, 0.77, 0.0);
           if (updateHue)
-            SetPointColor (i, HSB (h, 1, 1, a));
+            SetVertexColor (i, HSB (h, 1, 1, a));
           else
-            SetPointAlpha (i, a);
+            SetVertexAlpha (i, a);
         }
     }
 
   //  Function to set the VBO's point sizes
   void updatePointSize ()
-    { for (int64 i = 0; i < Count (); i++)
+    { for (int64 i = 0; i < table . RowCount (); i++)
         { float64 m =  ComputePointSize (magnitude . Nth (i));
           SetPointSize (i, m);
         }
@@ -885,7 +902,7 @@ class Earthquakes  :  public DataSet
           labels_graphics . Put (e -> Provenance (), s);
         }
 
-      int closest = FindClosestPoint (e, true);
+      int closest = ClosestVertex (e, true);
       if (closest < 1  || closest > (magnitude . Count () - 1))
         { return; } //  returning because closest is possibly out of bounds
 
@@ -899,7 +916,7 @@ class Earthquakes  :  public DataSet
           //  and then use UnWrangleLoc () to determine the absolute location
           //  which takes into consideration translations and rotations
           //  applied to the parent object (the DataSet class)
-          quake_abs_loc = UnWrangleLoc (PointLocation (closest));
+          quake_abs_loc = UnWrangleLoc (NthVertexLoc (closest));
           m = ComputePointSize (magnitude . Nth (closest));
           m *= .3;
         }
@@ -995,7 +1012,7 @@ class Earthquakes  :  public DataSet
 
       //  Count the number of quakes within the depth range
       int quakes_within_range = 0;
-      for (int i = 0; i < Count (); i++)
+      for (int i = 0; i < depth . Count (); i++)
         if (Abs (depth . Nth (i) - system_depth) < 10)
           quakes_within_range++;
 
@@ -1025,7 +1042,7 @@ class Earthquakes  :  public DataSet
           if(system_depth <= (quake_depth_max-20.0))
             system_depth += 10.0;
           int64 quakes_within_range = 0;
-          for (int64 i = 0; i < Count (); i++)
+          for (int64 i = 0; i < depth . Count (); i++)
             if (Abs (depth . Nth (i) - system_depth) < 10)
               quakes_within_range++;
           UpdatePointColors ();
@@ -1041,7 +1058,7 @@ class Earthquakes  :  public DataSet
           if(system_depth >= (quake_depth_min + 10.0))
             system_depth -= 10.0;
           int64 quakes_within_range = 0;
-          for (int64 i = 0; i < Count (); i++)
+          for (int64 i = 0; i < depth . Count (); i++)
             if ( Abs (depth . Nth (i) - system_depth) < 10)
               quakes_within_range++;
           UpdatePointColors ();
@@ -1205,7 +1222,7 @@ class DataSystem  :  public Thing
       TranslationAnimateChase (.25);
     }
 
-  //  Function to reset Dataset to it's original settings
+  //  Function to reset DataSystem to its original settings
   void OriginalSettings ()
     { //  DataSystem settings
       SetTranslationHard (Feld () -> Loc ());
@@ -1287,7 +1304,7 @@ class DataSystem  :  public Thing
         }
     }
 
-  // Rotation
+  // Globe Rotation
   void FingerMove (PointingEvent *e)
     { if (viewDataAsGlobe)
           { //  Rotate around the WrangleRay (Feld () -> Up ()) axis.

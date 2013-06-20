@@ -21,7 +21,7 @@
 
 
 class Brain  :  public DataTable,
-                public PointCloud
+                public Points
 {
 public:
   DataColumn<Vect> verts, norms;
@@ -30,10 +30,9 @@ public:
     : verts (*this, 0),
       norms (*this, 3)
   { Load (filename);
-    SetLocations (verts);
+    SetVertexLocs (verts);
     SetNorms (norms);
-    SetUseNorms (true);
-    SetReady (true);
+    SetVerticesReady ();
   }
 
   Vect Center () const
