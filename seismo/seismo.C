@@ -1376,18 +1376,18 @@ class DataSystem  :  public Thing
         { IncRotation (WrangleRay (Feld () -> Up ()), PI / 18); }
 
       //  Mimic fist translation for debugging without a 3D sensor
-      int64 translation_amount = 40;
-      if (Utters (e, "i")) //  Transalte positively on the Norm () axis
+      int64 translation_amount = 30;
+      if (Utters (e, "i")) //  Translate positively on the Norm () axis
         { IncTranslation (translation_amount * 2 * Feld () -> Norm ()); }
-      else if (Utters (e, "k")) //  Transalte negatively on the Norm () axis
+      else if (Utters (e, "k")) //  Translate negatively on the Norm () axis
         { IncTranslation (-translation_amount * 2 * Feld () -> Norm ()); }
-      else if (Utters (e, "j")) //  Transalte positively on the Norm () axis
+      else if (Utters (e, "j")) //  Translate positively on the Norm () axis
         { IncTranslation (-translation_amount * Feld () -> Over ()); }
-      else if (Utters (e, "l")) //  Transalte negatively on the Over () axis
+      else if (Utters (e, "l")) //  Translate negatively on the Over () axis
         { IncTranslation (translation_amount * Feld () -> Over ()); }
-      else if (Utters (e, "y")) //  Transalte positively on the Over () axis
+      else if (Utters (e, "y")) //  Translate positively on the Over () axis
         { IncTranslation (translation_amount * 1 * Feld () -> Up ()); }
-      else if (Utters (e, "h")) //  Transalte negatively on the Up () axis
+      else if (Utters (e, "h")) //  Translate negatively on the Up () axis
         { IncTranslation (-translation_amount * 1 * Feld () -> Up ()); }
 
       //  Turn on/off an automatic rotation of the DataSystem
