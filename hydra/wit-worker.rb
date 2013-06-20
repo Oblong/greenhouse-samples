@@ -97,7 +97,10 @@ end
 
 def select_from_data(data, item_count)
   result = []
-  (0..item_count).each { |i|
+  (0..item_count-1).each { |i|
+    if i >= data.count
+      break
+    end
     usr = data[i]['user']
     url = data[i]['html_url']
     result << { "user" => usr['login'],
