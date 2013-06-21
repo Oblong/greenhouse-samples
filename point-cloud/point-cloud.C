@@ -1,5 +1,6 @@
 
 #include <Greenhouse.h>
+#include "Table.h"
 
 /**
  To ensure the image resources are found when running this sample, you will
@@ -20,27 +21,31 @@
  */
 
 
-class Brain  :  public DataTable,
-                public Points
+class Brain  :  public Points
 {
 public:
-  DataColumn<Vect> verts, norms;
+  Table table;
+  Trove <Vect> vertices;
+  Trove <Vect> normals;
 
   Brain (Str const& filename)
-    : verts (*this, 0),
-      norms (*this, 3)
-  { Load (filename);
-    SetVertexLocs (verts);
-    SetNorms (norms);
+  { table . Load (filename);
+    vertices = table . VectColumn (0, 1, 2);
+    normals  = table . VectColumn (3, 4, 5);
+    SetVertexCount (table . RowCount ());
+    SetVertexLocs (vertices);
+    SetNorms (normals);
     SetVerticesReady ();
   }
 
   Vect Center () const
-  { Vect tots = Vect (0, 0, 0);
-    if (0 == verts . size ()) return tots;
-    BOOST_FOREACH (Vect const& v, verts)
-      tots += v;
-    return tots / float64 (verts . size ());
+  { if (0 == vertices . Count ()) return ZeroVect;
+    
+    Vect total = ZeroVect;    
+    for (int64 i = 0 ; i < vertices . Count () ; i++)
+      total += vertices[i];
+
+    return total / float64 (vertices . Count ());
   }
 };
 
@@ -48,6 +53,7 @@ void Setup ()
 { Brain *brain = new Brain ("data/brain.txt");
   brain -> LoadShaders ("shaders/brain.vert", "shaders/brain.frag");
   Vect center = brain -> Center ();
-  brain -> SetTranslation (Feld () -> Loc () - Vect(center.x, center.y, 1000.0));
+  brain -> SetTranslation (Feld () -> Loc () - 
+                           Vect(center.x, center.y, 1000.0));
   brain -> RotationAnimateSine (center + Vect (0, 1, 0), 180.0, 10.0);
 }
