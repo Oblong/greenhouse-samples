@@ -39,16 +39,17 @@ public:
   //  0 = invisible, 1 = visible
   Trove <int64> drawitude;
 
-  CountryBorders ()  :
-      Table ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt", true)
-    { //  Interpret the 0th and 1th column in the data as floats,
+  CountryBorders () 
+    { Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt", 
+             true);
+      //  Interpret the 0th and 1th column in the data as floats,
       //  and the 2th column as ints
       longitude = FloatColumn (0);
       latitude  = FloatColumn (1);
       drawitude = IntColumn   (2);
       SetVertexCount (RowCount ());
 
-      LoadShaders ("shaders/foggy.vert", "shaders/null.frag");
+      LoadShaders ("shaders/cities-foggy.vert", "shaders/null.frag");
 
       for (int64 i = 0  ;  i < RowCount ();  i++)
         { float64 mapped_longitude
@@ -144,11 +145,11 @@ public:
 
 
 //  Stores and displays city data, as points
-class Cities  :  public Table,
-                 public Points
+class Cities  :  public Points
 {
 public:
 
+  Table table;
   Trove <Str> city_name;
   Trove <float64> latitude;
   Trove <float64> longitude;
@@ -161,12 +162,13 @@ public:
   Dictionary <Str, Text *> labels;
 
   Cities ()  :
-      Table ("data/cities/geonames_cities5000.txt"),
       last_closest_point (-1)
-    { city_name = StrColumn   (0);
-      latitude  = FloatColumn (1);
-      longitude = FloatColumn (2);
-      SetVertexCount (RowCount());
+    { table . Load ("data/cities/geonames_cities5000.txt");
+
+      city_name = table . StrColumn   (0);
+      latitude  = table . FloatColumn (1);
+      longitude = table . FloatColumn (2);
+      SetVertexCount (table . RowCount());
 
       LoadShaders ("shaders/cities-foggy.vert", "shaders/null.frag");
 
