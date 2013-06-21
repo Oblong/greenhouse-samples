@@ -13,7 +13,7 @@ CXXFLAGS = -Wempty-body \
   -fdiagnostics-show-option \
   -Wall \
   -Wpointer-arith \
-  -Wshadow \
+  -Wno-shadow \
   -Wwrite-strings \
   -Wno-overloaded-virtual \
   -Wno-strict-overflow \
