@@ -13,7 +13,7 @@ CXXFLAGS = -Wempty-body \
   -fdiagnostics-show-option \
   -Wall \
   -Wpointer-arith \
-  -Wshadow \
+  -Wno-shadow \
   -Wwrite-strings \
   -Wno-overloaded-virtual \
   -Wno-strict-overflow \
@@ -24,19 +24,27 @@ CXXFLAGS = -Wempty-body \
 
 LDFLAGS=`PKG_CONFIG_PATH=$(GH_PKG_CONFIG) --libs --static libGreenhouse`
 
-NO_COLOR=\x1b[0m
-OK_COLOR=\x1b[36;21m
+esc=`echo "\033"`
+NO_COLOR=${esc}[0m
+OK_COLOR=${esc}[36;21m
 
 define EXP_STR
 
-======================================================================
-TO HAVE YOUR APPLICATION FIND THE RESOURCES IN THE LOCAL SHARE FOLDER,
-PLEASE RUN THE FOLLOWING:
+=======================================================================
+TO HAVE YOUR APPLICATION FIND ASSETS IN A FOLDER OF YOUR CHOICE 
+(SUCH AS YOUR CURRENT FOLDER), TRY ADDING ONTO THE OB_SHARE_PATH
+ENVIRONMENT VARIABLE.  IT'S NOT TOO HARD.
 
-export OB_SHARE_PATH=`pwd`/share:$$OB_SHARE_PATH
+MAYBE LIKE THIS (affects just one run of the program):
 
-*Note: This will only affect your current terminal window.
-======================================================================
+   OB_SHARE_PATH=/Users/foo/images:$$OB_SHARE_PATH ./my-greenhouse-program
+
+OR EVEN LIKE THIS (affects current Terminal session):
+
+   export OB_SHARE_PATH=`pwd`/share:$$OB_SHARE_PATH
+                        ^^^^^
+                  Minor trickiness here pastes in name of current dir
+=======================================================================
 endef
 export EXP_STR
 

@@ -12,7 +12,7 @@
 
   wit-worker listens to the 'witter' pool for any proteins
   having a "wit-request" descrip and an "argument" ingest.
-  It makes an HTTP request to Twitter's trends API, and
+  It makes an HTTP request to Github's web API, and
   puts the result into a new protein, which is deposited
   back into the 'witter' pool.
 
@@ -34,7 +34,7 @@
 
   3. When you click the text object in hydra, it puts a
      request protein in the 'witter' pool.  wit-worker
-     watches for these proteins, does the Twitter request,
+     watches for these proteins, does the web API request,
      and puts a new result protein into the pool.
 
 
@@ -63,7 +63,7 @@ include Plasma
 require 'pp'
 
 begin
-  require 'rest-client'
+  require 'rest_client'
 rescue LoadError
   puts "The 'rest-client' gem must be installed to run this example."
   puts "Please do 'sudo gem install rest-client' and try again."
@@ -89,15 +89,24 @@ rescue
 end
 
 
-def slaw_from_twitter()
-  url = 'https://api.twitter.com/1/trends/1.json'
-  response = RestClient.get url
+def data_from_url(url)
+  response = RestClient.get(url, :user_agent => 'RestClient')
+  JSON.parse(response.body)
+end
 
-  j = JSON.parse(response.body)
-  #puts "\nJSON.parse =\n\n"
-  #puts j.inspect
 
-  Slaw.new j
+def select_from_data(data, item_count)
+  result = []
+  (0..item_count-1).each { |i|
+    if i >= data.count
+      break
+    end
+    usr = data[i]['user']
+    url = data[i]['html_url']
+    result << { "user" => usr['login'],
+                "url"  => url}
+  }
+  result
 end
 
 
@@ -108,7 +117,6 @@ if ! hose
   puts "wit-worker couldn't open a hose to the '#{$poolname}' pool."
   exit
 end
-
 
 puts "wit-worker is watching the '#{$poolname}' pool."
 puts "Listening for any proteins with descrip 'wit-request' & ingest 'argument'"
@@ -123,23 +131,15 @@ while true
 
       puts "wit-request protein received: " + descrips.inspect +
            ", " + ingests.inspect
-      puts "making twitter request..."
+      puts "making web API request..."
 
-      s = slaw_from_twitter()
-
-      # Let's digest that slaw a bit; we got a list, want the first element.
-      # Within that list is a map, from which we want the 'trends'
-      # key/value pair
-      s = s[0]["trends"]
-
-      # Have a look-see
-      # pp s.class    # It's an array
-      # pp s
-
+      j = data_from_url('https://api.github.com/gists/public')
+      result = select_from_data(j, ingests['argument'])
+     
       puts "...and depositing result in the pool."
 
       hose.deposit Protein.new(["wit-result"],
-                               {"trends", s})
+                               {"recent-gists", Slaw.new(result)})
     end
   end
 end

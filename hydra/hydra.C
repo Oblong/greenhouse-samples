@@ -116,15 +116,15 @@ class Witter  :  public Text
     { SetBackingColor (Color (0, 0, 0, 0.5));
       SlapOnFeld ();
       SpaceFeld *f = Feld ();
-      SetFontSize (f -> Height () / 36.0);
-      IncTranslation (Vect (f -> Width () * -0.25,
+      SetFontSize (f -> Height () / 40.0);
+      IncTranslation (Vect (f -> Width () * -0.2,
                             f -> Height () * -0.25, 0));
 
       ParticipateInPool ("witter");
       ListenForDescrip ("wit-result");
     }
 
-  void SendWitRequest (float64 argument)
+  void SendWitRequest (int64 argument)
     { SetString ("Sending request to wit worker");
       waiting = true;
       Protein p = ProteinWithDescrip ("wit-request");
@@ -134,7 +134,7 @@ class Witter  :  public Text
 
   void PointingInsideHarden (PointingEvent *e)
     { if (! waiting)
-        SendWitRequest (1134.78);
+        SendWitRequest (5);
       else
         { if (String () . Matches ("^Patience"))
             SetString (String () + ".");
@@ -146,17 +146,17 @@ class Witter  :  public Text
   //  Pressing 'w' sends a wit request
   void Blurt (BlurtEvent *e)
     { if (Utters (e, "w"))
-        SendWitRequest (3.14);
+        SendWitRequest (5);
     }
 
   void Metabolize (const Protein &p)
     { //  We expect to get a slaw list from wit-worker.rb
-      Slaw trends_list = p . Ingests () . Find ("trends");
-      // INFORM ("Received: \n" + SLAW (trends_list));
+      Slaw gist_list = p . Ingests () . Find ("recent-gists");
+      // INFORM ("Received: \n" + SLAW (gist_list));
 
-      Str to_show = "Current Twitter trends: \n\n";
-      for (int64 i = 0 ; i < trends_list . Count () ; i++)
-        to_show += trends_list[i] . Find ("name") . ToPrintableString () + "\n";
+      Str to_show = "Recent github gists: \n\n";
+      for (int64 i = 0 ; i < gist_list . Count () ; i++)
+        to_show += gist_list[i] . ToPrintableString () + "\n";
 
       SetString (to_show);
       waiting = false;

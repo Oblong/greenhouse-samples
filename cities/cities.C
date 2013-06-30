@@ -6,7 +6,7 @@
 //  cities5000.zip : all cities with a population > 5000
 
 #include "Greenhouse.h"
-#include "DataSet.h"
+#include "Table.h"
 
 #define GLOBE_RADIUS 120.0
 
@@ -22,9 +22,14 @@ inline Vect LatLongToSphereSurface (float64 radius, float64 lat, float64 lng)
 }
 
 
-// Object that stores and displays global country border data
-class CountryBorders  :  public DataSet
-{ public:
+///  Stores and displays global country border data, as a line strip
+///  Inherits from both Table and LineStrip.
+///  Another way to do this is to have the Table object live inside
+///  this class; see seismo.C for an example of that usage.
+class CountryBorders  :  public Table,
+                         public LineStrip
+{
+public:
 
   //  We store the dataset's latitudes/longitudes as floats
   Trove <float64> latitude;
@@ -34,39 +39,35 @@ class CountryBorders  :  public DataSet
   //  0 = invisible, 1 = visible
   Trove <int64> drawitude;
 
-  CountryBorders ()  :  DataSet ()
-    { Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt");
-
+  CountryBorders () 
+    { Load ("data/Tissot_indicatrix_world_map_equirectangular_proj_360x180_coords_cleaner2.txt", 
+             true);
       //  Interpret the 0th and 1th column in the data as floats,
       //  and the 2th column as ints
       longitude = FloatColumn (0);
       latitude  = FloatColumn (1);
       drawitude = IntColumn   (2);
+      SetVertexCount (RowCount ());
 
-      LoadShaders ("shaders/foggy.vert", "shaders/null.frag");
+      LoadShaders ("shaders/cities-foggy.vert", "shaders/null.frag");
 
-      for (int64 i = 4  ;  i < Count ()  ;  i++)
+      for (int64 i = 0  ;  i < RowCount ();  i++)
         { float64 mapped_longitude
             = Range (longitude[i], 0.0, 360.0, -180.0, 180.0) - 0.2;
 
-          //  todo: - .2 because the borders data is a tad off
+          //  .2 because the borders data is a tad off
           float64 mapped_latitude
             = Range (latitude[i], 0.0, 180.0, 90.0, -90.0) + 0.25;
 
-          //  todo: + .25 because the borders data is a tad off
+          //  .25 because the borders data is a tad off
+          SetVertexLoc (i, LatLongToSphereSurface (GLOBE_RADIUS - 0.5,
+                                                  mapped_latitude,
+                                                  mapped_longitude));
 
-          Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS - 0.5,
-                                                        mapped_latitude,
-                                                        mapped_longitude);
-          SetPointLocation (i, globe_position.x,
-                            globe_position.y,
-                            globe_position.z);
-
-          SetPointColor (i, HSB (0.5, 0.0, 0.2, 1.0 * drawitude[i]));
+          // INFORM (ToStr (longitude[i]) + " " + ToStr (latitude[i]) + " " + ToStr (drawitude[i]));
+          SetVertexColor (i, HSB (0.5, 0, 0.2, drawitude[i]));
         }
-
-      DataReady ();
-      SetDrawMode (GL_LINE_STRIP);
+      SetVerticesReady ();
 
       RotationAnimateChase (0.75);
       TranslationAnimateChase (0.25);
@@ -78,6 +79,18 @@ class CountryBorders  :  public DataSet
       SetShaderUniform ("fog_radius", GLOBE_RADIUS);
       SetShaderUniform ("system_distance", Loc () . DistFrom (viewloc));
       SetShaderUniform ("camera_position", viewloc);
+    }
+
+  void PreDraw ()
+    { //  This keeps GL from interpolating color between endpoints of the line strip.
+      //  So if one end of the line has alpha==0, the whole line doesn't draw.
+      //  That's what we want; the data has single rows of "0" alpha points.
+      glShadeModel (GL_FLAT);
+    }
+
+  void PostDraw ()
+    { //  Set back to default
+      glShadeModel (GL_SMOOTH);
     }
 
   void Blurt (BlurtEvent *e)
@@ -131,44 +144,42 @@ class CountryBorders  :  public DataSet
 };
 
 
-//  Stores and displays the city data
-class Cities  :  public DataSet
-{ public:
+//  Stores and displays city data, as points
+class Cities  :  public Points
+{
+public:
 
+  Table table;
   Trove <Str> city_name;
   Trove <float64> latitude;
   Trove <float64> longitude;
+
+  int64 last_closest_point;
 
   //  A map of event source names (provenances) to Text labels.
   //  These labels will display information about each cursor's
   //  closest data point
   Dictionary <Str, Text *> labels;
 
-  Cities ()  :  DataSet ()
-    { Load ("data/cities/geonames_cities5000.txt");
+  Cities ()  :
+      last_closest_point (-1)
+    { table . Load ("data/cities/geonames_cities5000.txt");
 
-      city_name = StrColumn   (0);
-      latitude  = FloatColumn (1);
-      longitude = FloatColumn (2);
+      city_name = table . StrColumn   (0);
+      latitude  = table . FloatColumn (1);
+      longitude = table . FloatColumn (2);
+      SetVertexCount (table . RowCount());
 
-      LoadShaders ("shaders/foggy.vert", "shaders/null.frag");
+      LoadShaders ("shaders/cities-foggy.vert", "shaders/null.frag");
 
-      for (int64 i = 0  ;  i < Count ()  ;  i++)
-        { Vect globe_position = LatLongToSphereSurface (GLOBE_RADIUS,
-                                                        latitude[i],
-                                                        longitude[i]);
-          SetPointLocation (i, globe_position.x,
-                               globe_position.y,
-                               globe_position.z);
-
-          // INFORM ( city_name[i] + ", "
-          //        + ToStr (longitude[i]) + ", "
-          //        + ToStr (latitude[i]) );
-
-          SetPointColor (i, HSB (0.12, 0.2, 1.0, 1.0));
+      for (int64 i = 0  ;  i < VertexCount ()  ;  i++)
+        { SetVertexLoc (i, LatLongToSphereSurface (GLOBE_RADIUS,
+                                                   latitude[i],
+                                                   longitude[i]));
+          SetVertexColor (i, HSB (0.12, 0.2, 1.0, 1.0));
           SetPointSize (i, 2.0);
         }
-      DataReady ();
+      SetVerticesReady ();
     }
 
   //  Runs once per render loop; where we provide input to shaders
@@ -199,18 +210,16 @@ class Cities  :  public DataSet
     }
 
   void IndividualPointerInteract (PointingEvent *e)
-    { int64 last = LastClosestPoint ();
-      if (last > -1)
-        SetPointSize (last, 2.0);
+    { if (last_closest_point > -1)
+        SetPointSize (last_closest_point, 2);
 
-      int64 closest = FindClosestPoint (e);
-      if (closest > -1)
-        SetPointSize (closest, 4.0);
+      last_closest_point = ClosestVertex (e);
+      if (last_closest_point > -1)
+        SetPointSize (last_closest_point, 20);
 
-      //  todo: document this
-      Vect abs_loc = UnWrangleLoc (PointLocation (closest));
+      Vect abs_loc = UnWrangleLoc (NthVertexLoc (last_closest_point));
 
-      UpdateLabel (e, city_name[closest], abs_loc);
+      UpdateLabel (e, city_name[last_closest_point], abs_loc);
     }
 
   void PointingMove (PointingEvent *e)
